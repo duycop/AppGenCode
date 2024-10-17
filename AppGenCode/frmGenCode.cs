@@ -17,7 +17,7 @@ namespace AppGenCode
         {
             InitializeComponent();
         }
-
+        #region init form
         void copy(TextBox t)
         {
             try
@@ -55,55 +55,7 @@ namespace AppGenCode
         {
             txtInput.Text = Clipboard.GetText();
         }
-        char[] sepLine = { '\r', '\n' };
-        char[] sepTen = { '.' };
-        char[] sepTen2 = { '[', ']', '(', ')' };
-        string[] sepTruong = { " NOT NULL", " NULL", "[", "]", "," };
-        char[] sepTruong2 = { ' ' };
-        string table;
-        Dictionary<string, string> fields = new Dictionary<string, string>();
-        private void cmdGenCode_Click(object sender, EventArgs e)
-        {
-            fields.Clear();
-            string s = txtInput.Text;
-            string[] a = s.Split(sepLine, StringSplitOptions.RemoveEmptyEntries);
-            s = "";
-            bool begin = false;
-            for (int i = 0; i < a.Length; i++)
-            {
-                string line = a[i];
-                if (!begin && line.StartsWith("CREATE TABLE", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    string[] b = line.Split(sepTen, StringSplitOptions.RemoveEmptyEntries);
-                    string[] c = b[1].Split(sepTen2, StringSplitOptions.RemoveEmptyEntries);
-                    table = c[0];
-                    s += "Table: " + table + "\r\n";
-                    begin = true;
-                    continue;
-                }
-                if (begin)
-                {
-                    if (line.Contains("CONSTRAINT") || line.StartsWith("(") || line.StartsWith(")WITH"))
-                    {
-                        break;
-                    }
 
-                    string[] d = line.Split(sepTruong, StringSplitOptions.RemoveEmptyEntries);
-                    if (d.Length == 4)
-                    {
-                        fields.Add(d[1], d[3]);
-                        s += $"{d[1]}: {d[3]}\r\n";
-                    }
-                    else if (d.Length == 5)
-                    {
-                        fields.Add(d[1], $"{d[3]}{d[4]}");
-                        s += $"{d[1]}: {d[3]}{d[4]}\r\n";
-                    }
-                }
-            }
-
-            txtSP.Text = s;
-        }
 
         private void frmGenCode_Load(object sender, EventArgs e)
         {
@@ -136,6 +88,20 @@ namespace AppGenCode
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        #endregion
+
+       
+        string tableName;
+        Dictionary<string, string> fields;
+
+        private void cmdGenCode_Click(object sender, EventArgs e)
+        {
+            string sql_create_table = txtInput.Text;
+            string log = GenSP.Detect(sql_create_table, out tableName, out fields);
+            string sql = GenSP.GenSQL(tableName, fields);
+            txtSP.Text = log + Environment.NewLine + sql;
         }
 
     }

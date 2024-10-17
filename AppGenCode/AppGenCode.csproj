@@ -49,6 +49,7 @@
     <Compile Include="frmGenCode.Designer.cs">
       <DependentUpon>frmGenCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="gen_sp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmGenCode.resx">
