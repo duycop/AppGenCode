@@ -1,0 +1,181 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AD164C73-FC78-4A5F-941C-D60682313C96}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>web_test</RootNamespace>
+    <AssemblyName>web_test</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44382</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon\manifest.json" />
+    <Content Include="icon\site.webmanifest" />
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="webfonts\fa-v4compatibility.ttf" />
+    <Content Include="webfonts\fa-v4compatibility.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="api.aspx" />
+    <Content Include="api\default.aspx" />
+    <Content Include="asset\am5.animated.js" />
+    <Content Include="asset\am5.js" />
+    <Content Include="asset\am5.responsive.js" />
+    <Content Include="asset\am5.xy.js" />
+    <Content Include="asset\bootstrap.bundle.min.js" />
+    <Content Include="asset\bootstrap.min.css" />
+    <Content Include="asset\callback-demo.js" />
+    <Content Include="asset\crypto-js.min.js" />
+    <Content Include="asset\datatables.min.css" />
+    <Content Include="asset\datatables.min.js" />
+    <Content Include="asset\fontawesome.all.min.css" />
+    <Content Include="asset\fontawesome.min.css" />
+    <Content Include="asset\fp.min.js" />
+    <Content Include="asset\jquery-confirm.min.css" />
+    <Content Include="asset\jquery-confirm.min.js" />
+    <Content Include="asset\jquery-ui.min.css" />
+    <Content Include="asset\jquery-ui.min.js" />
+    <Content Include="asset\jquery.min.js" />
+    <Content Include="asset\lib_control.js" />
+    <Content Include="asset\lib_excel.js" />
+    <Content Include="asset\lib_log.js" />
+    <Content Include="asset\lib_role.js" />
+    <Content Include="asset\lib_setting.js" />
+    <Content Include="asset\lib_sv.js" />
+    <Content Include="asset\lib_table.js" />
+    <Content Include="asset\lib_toastr.js" />
+    <Content Include="asset\lib_user.js" />
+    <Content Include="asset\main.css" />
+    <Content Include="asset\main.js" />
+    <Content Include="asset\toastr.min.css" />
+    <Content Include="asset\toastr.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="icon\android-chrome-192x192.png" />
+    <Content Include="icon\android-chrome-512x512.png" />
+    <Content Include="icon\apple-touch-icon.png" />
+    <Content Include="icon\favicon-16x16.png" />
+    <Content Include="icon\favicon-32x32.png" />
+    <Content Include="icon\favicon.ico" />
+    <Content Include="images\logo_lahien.png" />
+    <Content Include="index.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="api.aspx.cs">
+      <DependentUpon>api.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="api.aspx.designer.cs">
+      <DependentUpon>api.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lib_log\lib_log.csproj">
+      <Project>{3be94114-d96f-4a99-89b3-12872b39f3b4}</Project>
+      <Name>lib_log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_setting\lib_setting.csproj">
+      <Project>{1f5e90e0-deea-4ed5-b07d-5cd8f01db491}</Project>
+      <Name>lib_setting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_sv\lib_sv.csproj">
+      <Project>{9d5ab4e6-e26d-4f7d-afba-1dea3a3331e8}</Project>
+      <Name>lib_sv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_user\lib_user.csproj">
+      <Project>{14bfd213-f4bb-46ba-96ad-5c8c7422076e}</Project>
+      <Name>lib_user</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55538</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44382/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

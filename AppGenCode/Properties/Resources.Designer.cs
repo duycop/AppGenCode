@@ -88,9 +88,9 @@ namespace AppGenCode.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] app {
+        internal static byte[] App {
             get {
-                object obj = ResourceManager.GetObject("app", resourceCulture);
+                object obj = ResourceManager.GetObject("App", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -123,8 +123,7 @@ namespace AppGenCode.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///&lt;!DOCTYPE html&gt;
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
         ///&lt;head&gt;
         ///    &lt;title&gt;ABC-XYZ&lt;/title&gt;
@@ -136,7 +135,7 @@ namespace AppGenCode.Properties {
         ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
         ///    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
         ///    &lt;meta name=&quot;mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
-        ///    &lt;link rel=&quot;apple-touch-icon&quot; [rest of string was truncated]&quot;;.
+        ///    &lt;link rel=&quot;apple-touch-icon&quot; s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string index {
             get {
@@ -186,7 +185,14 @@ namespace AppGenCode.Properties {
         ///}
         ///export function main() {
         ///	//init
-        ///}.
+        ///}
+        ///function get___TABLE_NAME___content(dialog) {
+        ///	let tieu_de = &apos;Danh sách __TABLE_NAME__&apos;;
+        ///	$.post(api, { action: &apos;__TABLE_NAME___get_all&apos; }, function (json) {
+        ///		var html = &apos;&apos;;
+        ///		if (json.ok) {
+        ///			html = &apos;&lt;div class=&quot;table-responsive&quot; style=&quot;height-max:100px&quot;&gt;&apos; +
+        ///				&apos;&lt;table class=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lib_js {
             get {

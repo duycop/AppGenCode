@@ -4,19 +4,35 @@ using System.Text;
 
 namespace AppGenCode
 {
+    internal class Field
+    {
+        public string name, type, label;
+        public Field(string name, string type, string label = "")
+        {
+            this.name = name;
+            this.type = type;
+            this.label = label;
+        }
+    }
+    internal class DB
+    {
+        public string tableName;
+        public Field primaryKey;
+        public List<Field> fields;
+    }
     internal class GenSP
     {
-        public static string Detect(string sql, out string tableName, out string primaryKey, out Dictionary<string, string> fields)
+        public static string Detect(string sql, DB db)
         {
             char[] sepLine = { '\r', '\n' };
             char[] sepTen = { '.' };
             char[] sepTen2 = { '[', ']', '(', ')' };
-            string[] sepTruong = { " NOT NULL", " NULL", "[", "]", "," };
+            string[] sepTruong = { " NOT NULL", " NULL", "[", "]", ",","-- " };
             char[] sepTruong2 = { ' ' };
 
-            fields = new Dictionary<string, string>();
-            tableName = "";
-            primaryKey = "";
+            db.fields = new List<Field>();
+            db.tableName = "";
+            db.primaryKey = new Field("","");
 
             string[] a = sql.Split(sepLine, StringSplitOptions.RemoveEmptyEntries);
             string s = $"--Auto gen by tool GenCode" + Environment.NewLine;
@@ -31,8 +47,8 @@ namespace AppGenCode
                 {
                     string[] b = line.Split(sepTen, StringSplitOptions.RemoveEmptyEntries);
                     string[] c = b[1].Split(sepTen2, StringSplitOptions.RemoveEmptyEntries);
-                    tableName = c[0];
-                    s += "--TableName: " + tableName + Environment.NewLine;
+                    db.tableName = c[0];
+                    s += "--TableName: " + db.tableName + Environment.NewLine;
                     begin = true;
                     continue;
                 }
@@ -47,90 +63,98 @@ namespace AppGenCode
                     if (d.Length >= 4 && isKey)
                     {
                         isKey = false;
-                        primaryKey = d[1];
-                        s += $"--primaryKey: {primaryKey}" + Environment.NewLine;
+                        db.primaryKey.name = d[1];
+                        s += $"--primaryKey: {db.primaryKey.name}" + Environment.NewLine;
                     }
-
                     if (d.Length == 4)
                     {
-                        fields.Add(d[1], d[3]);
-                        s += $"--field{++stt}\t{d[1]}: {d[3]}" + Environment.NewLine;
+                        db.fields.Add(new Field(d[1], d[3]));
+                        s += $"--field{++stt}\t{d[1]} => {d[3]}" + Environment.NewLine;
                     }
                     else if (d.Length == 5)
                     {
-                        fields.Add(d[1], $"{d[3]}{d[4]}");
-                        s += $"--field{++stt}\t--{d[1]}: {d[3]}{d[4]}" + Environment.NewLine;
+                        db.fields.Add(new Field(d[1], $"{d[3]}{d[4]}"));
+                        s += $"--field{++stt}\t--{d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
+                    }else if (d.Length == 6)
+                    {
+                        db.fields.Add(new Field(d[1], d[3], d[5]));
+                        s += $"--field{++stt}\t{d[5]}: {d[1]} => {d[3]}" + Environment.NewLine;
+                    }
+                    else if (d.Length == 7)
+                    {
+                        db.fields.Add(new Field(d[1], $"{d[3]}{d[4]}", d[6]));
+                        s += $"--field{++stt}\t--{d[6]}: {d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
                     }
                 }
             }
             return s;
         }
 
-        private static string ghep(Dictionary<string, string> fields, string bien = "", string sep = ",", string beginLine = "", string endLine = "")
+        private static string ghep(DB db, string bien = "", string sep = ",", string beginLine = "", string endLine = "")
         {
             List<string> key = new List<string>();
-            foreach (var item in fields)
+            foreach (var item in db.fields)
             {
                 if (bien == "@")
-                    key.Add($"{beginLine}@{item.Key}{endLine}");
+                    key.Add($"{beginLine}@{item.name}{endLine}");
                 else
-                    key.Add($"{beginLine}[{item.Key}]{endLine}");
+                    key.Add($"{beginLine}[{item.name}]{endLine}");
             }
             string kq = String.Join(sep, key.ToArray());
             return kq;
         }
-        private static string ghepSelect(Dictionary<string, string> fields, string sep = ",", string beginLine = "", string endLine = "")
+        private static string ghepSelect(DB db, string sep = ",", string beginLine = "", string endLine = "")
         {
             List<string> key = new List<string>();
-            foreach (var item in fields)
+            foreach (var item in db.fields)
             {
-                if (item.Value.Contains("datetime"))
-                    key.Add($"{beginLine}convert(varchar(19), [{item.Key}], 120) as [{item.Key}]{endLine}");
-                else if (item.Value.Contains("float"))
-                    key.Add($"{beginLine}CAST([{item.Key}] as DECIMAL(20, 2)) as [{item.Key}]{endLine}");
+                if (item.type.Contains("datetime"))
+                    key.Add($"{beginLine}convert(varchar(19), [{item.name}], 120) as [{item.name}]{endLine}");
+                else if (item.type.Contains("float"))
+                    key.Add($"{beginLine}CAST([{item.name}] as DECIMAL(20, 2)) as [{item.name}]{endLine}");
                 else
-                    key.Add($"{beginLine}[{item.Key}]{endLine}");
+                    key.Add($"{beginLine}[{item.name}]{endLine}");
             }
             string kq = String.Join(sep, key.ToArray());
             return kq;
         }
-        private static string ghepUpdate(Dictionary<string, string> fields, string sep = ",", string beginLine = "", string endLine = "")
+        private static string ghepUpdate(DB db, string sep = ",", string beginLine = "", string endLine = "")
         {
             List<string> key = new List<string>();
             bool first = true;
-            foreach (var item in fields)
+            foreach (var item in db.fields)
             {
                 if (first) { first = false; continue; }
-                key.Add($"{beginLine}[{item.Key}]=@{item.Key}{endLine}");
+                key.Add($"{beginLine}[{item.name}]=@{item.name}{endLine}");
             }
             string kq = String.Join(sep, key.ToArray());
             return kq;
         }
-        private static string ghepSearch(Dictionary<string, string> fields, string sep = " AND ", string beginLine = "", string endLine = "")
+        private static string ghepSearch(DB db, string sep = " AND ", string beginLine = "", string endLine = "")
         {
             List<string> key = new List<string>();
-            foreach (var item in fields)
+            foreach (var item in db.fields)
             {
-                if (item.Value.Contains("char"))
-                    key.Add($"{beginLine}([{item.Key}] LIKE @q){endLine}");
+                if (item.type.Contains("char"))
+                    key.Add($"{beginLine}([{item.name}] LIKE @q){endLine}");
             }
             string kq = String.Join(sep, key.ToArray());
             return kq;
         }
-        public static string GenCodeSQL(string tableName, string primaryKey, Dictionary<string, string> fields)
+        public static string GenCodeSQL(DB db)
         {
 
             // Bắt đầu sinh Store Procedure
             StringBuilder spBuilder = new StringBuilder();
 
-            spBuilder.AppendLine($"CREATE PROCEDURE [SP_{tableName}]");
+            spBuilder.AppendLine($"CREATE PROCEDURE [SP_{db.tableName}]");
             var columns = new List<string>();
             // Thêm các tham số vào Store Procedure
             spBuilder.AppendLine($"    @action NVARCHAR(50),");
-            foreach (var item in fields)
+            foreach (var item in db.fields)
             {
-                string columnName = item.Key;
-                string columnType = item.Value;
+                string columnName = item.name;
+                string columnType = item.type;
                 spBuilder.AppendLine($"    @{columnName} {columnType} = NULL,");
                 columns.Add(columnName);
             }
@@ -144,25 +168,25 @@ namespace AppGenCode
 
             spBuilder.AppendLine($"    DECLARE @json nvarchar(max)='';  --  biến chứa json để trả về");
 
-            spBuilder.AppendLine($"    -- Thao tác get_all với bảng [{tableName}]");
-            spBuilder.AppendLine($"    IF (@action = '{tableName}_get_all')");
+            spBuilder.AppendLine($"    -- Thao tác get_all với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    IF (@action = '{db.tableName}_get_all')");
             spBuilder.AppendLine($"    BEGIN");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{tableName}_get_all ok' AS [msg],(");
-            spBuilder.AppendLine($"        SELECT {ghepSelect(fields)}");
-            spBuilder.AppendLine($"        FROM [{tableName}]");
-            spBuilder.AppendLine($"        ORDER BY [{primaryKey}]");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{db.tableName}_get_all ok' AS [msg],(");
+            spBuilder.AppendLine($"        SELECT {ghepSelect(db)}");
+            spBuilder.AppendLine($"        FROM [{db.tableName}]");
+            spBuilder.AppendLine($"        ORDER BY [{db.primaryKey.name}]");
             spBuilder.AppendLine($"        FOR JSON PATH) AS data");
             spBuilder.AppendLine($"      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác get_page với bảng [{tableName}]");
-            spBuilder.AppendLine($"    IF (@action = '{tableName}_get_page')");
+            spBuilder.AppendLine($"    -- Thao tác get_page với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    IF (@action = '{db.tableName}_get_page')");
             spBuilder.AppendLine($"    BEGIN");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{tableName}_get_page ok' AS [msg],(");
-            spBuilder.AppendLine($"        SELECT {ghepSelect(fields)}");
-            spBuilder.AppendLine($"        FROM [{tableName}]");
-            spBuilder.AppendLine($"        ORDER BY [{primaryKey}]");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{db.tableName}_get_page ok' AS [msg],(");
+            spBuilder.AppendLine($"        SELECT {ghepSelect(db)}");
+            spBuilder.AppendLine($"        FROM [{db.tableName}]");
+            spBuilder.AppendLine($"        ORDER BY [{db.primaryKey.name}]");
             spBuilder.AppendLine($"        OFFSET (@Page - 1) * @NumberPerPage ROWS");
             spBuilder.AppendLine($"        FETCH NEXT @NumberPerPage ROWS ONLY");
             spBuilder.AppendLine($"        FOR JSON PATH) AS data");
@@ -170,66 +194,66 @@ namespace AppGenCode
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác get_top với bảng [{tableName}]");
-            spBuilder.AppendLine($"    ELSE IF (@action = '{tableName}_get_top')");
+            spBuilder.AppendLine($"    -- Thao tác get_top với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_get_top')");
             spBuilder.AppendLine($"    BEGIN");
             spBuilder.AppendLine($"      IF(@TopN IS NULL)SET @TopN=100;");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{tableName}_get_top ok' AS [msg],(");
-            spBuilder.AppendLine($"        SELECT TOP(@TopN) {ghepSelect(fields)}");
-            spBuilder.AppendLine($"        FROM [{tableName}]");
-            spBuilder.AppendLine($"        ORDER BY [{primaryKey}]");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{db.tableName}_get_top ok' AS [msg],(");
+            spBuilder.AppendLine($"        SELECT TOP(@TopN) {ghepSelect(db)}");
+            spBuilder.AppendLine($"        FROM [{db.tableName}]");
+            spBuilder.AppendLine($"        ORDER BY [{db.primaryKey.name}]");
             spBuilder.AppendLine($"        FOR JSON PATH) AS data");
             spBuilder.AppendLine($"      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác search theo @q với bảng [{tableName}]");
-            spBuilder.AppendLine($"    ELSE IF (@action = '{tableName}_search')");
+            spBuilder.AppendLine($"    -- Thao tác search theo @q với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_search')");
             spBuilder.AppendLine($"    BEGIN");
             spBuilder.AppendLine($"      SET @q = '%'+@q+'%';");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{tableName}_search ok' AS [msg],(");
-            spBuilder.AppendLine($"        SELECT {ghepSelect(fields)}");
-            spBuilder.AppendLine($"        FROM [{tableName}]");
-            spBuilder.AppendLine($"        WHERE {ghepSearch(fields)}");
-            spBuilder.AppendLine($"        ORDER BY [{primaryKey}]");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok], '{db.tableName}_search ok' AS [msg],(");
+            spBuilder.AppendLine($"        SELECT {ghepSelect(db)}");
+            spBuilder.AppendLine($"        FROM [{db.tableName}]");
+            spBuilder.AppendLine($"        WHERE {ghepSearch(db)}");
+            spBuilder.AppendLine($"        ORDER BY [{db.primaryKey.name}]");
             spBuilder.AppendLine($"        FOR JSON PATH) AS data");
             spBuilder.AppendLine($"      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác insert với bảng [{tableName}]");
-            spBuilder.AppendLine($"    ELSE IF (@action = '{tableName}_insert')");
+            spBuilder.AppendLine($"    -- Thao tác insert với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_insert')");
             spBuilder.AppendLine($"    BEGIN");
-            spBuilder.AppendLine($"      INSERT INTO [{tableName}] (");
-            spBuilder.AppendLine($"          {ghep(fields)}");
+            spBuilder.AppendLine($"      INSERT INTO [{db.tableName}] (");
+            spBuilder.AppendLine($"          {ghep(db)}");
             spBuilder.AppendLine($"      ) VALUES (");
-            spBuilder.AppendLine($"          {ghep(fields, bien: "@")}");
+            spBuilder.AppendLine($"          {ghep(db, bien: "@")}");
             spBuilder.AppendLine($"      );");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{tableName}_insert ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_insert ok' as [msg] for json path);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác update với bảng [{tableName}]");
-            spBuilder.AppendLine($"    ELSE IF (@action = '{tableName}_update')");
+            spBuilder.AppendLine($"    -- Thao tác update với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_update')");
             spBuilder.AppendLine($"    BEGIN");
-            spBuilder.AppendLine($"      UPDATE [{tableName}] SET");
-            spBuilder.AppendLine($"        {ghepUpdate(fields)}");
-            spBuilder.AppendLine($"      WHERE [{primaryKey}] = @{primaryKey};");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{tableName}_update ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      UPDATE [{db.tableName}] SET");
+            spBuilder.AppendLine($"        {ghepUpdate(db)}");
+            spBuilder.AppendLine($"      WHERE [{db.primaryKey.name}] = @{db.primaryKey.name};");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_update ok' as [msg] for json path);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
-            spBuilder.AppendLine($"    -- Thao tác delete với bảng [{tableName}]");
-            spBuilder.AppendLine($"    ELSE IF (@action = '{tableName}_delete')");
+            spBuilder.AppendLine($"    -- Thao tác delete với bảng [{db.tableName}]");
+            spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_delete')");
             spBuilder.AppendLine($"    BEGIN");
-            spBuilder.AppendLine($"      DELETE FROM [{tableName}] WHERE [{primaryKey}] = @{primaryKey};");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{tableName}_delete ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      DELETE FROM [{db.tableName}] WHERE [{db.primaryKey.name}] = @{db.primaryKey.name};");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_delete ok' as [msg] for json path);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
             spBuilder.AppendLine("END;");
 
-            spBuilder.AppendLine($"-- Kết thúc SP_{tableName}");
+            spBuilder.AppendLine($"-- Kết thúc SP_{db.tableName}");
 
             return spBuilder.ToString();
 

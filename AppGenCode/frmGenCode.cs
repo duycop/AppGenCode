@@ -85,9 +85,9 @@ namespace AppGenCode
             {
                 wb_about.ObjectForScripting = this;
                 wb_about.DocumentText = Properties.Resources.about;
-                txtHTML.Text= Properties.Resources.index;
-                txtCSS.Text= Properties.Resources.css;
-                txtJS.Text= Properties.Resources.js;
+                txtHTML.Text = Properties.Resources.index;
+                txtCSS.Text = Properties.Resources.css;
+                txtJS.Text = Properties.Resources.js;
             }
             catch (Exception ex)
             {
@@ -97,9 +97,8 @@ namespace AppGenCode
 
         #endregion
 
-       
-        string tableName, primaryKey;
-        Dictionary<string, string> fields;
+
+        
 
         private void picDownload_Click(object sender, EventArgs e)
         {
@@ -114,7 +113,7 @@ namespace AppGenCode
                     try
                     {
                         // Đọc file ZIP từ Resources
-                        byte[] zipFileData = Properties.Resources.app; // Tên file ZIP trong Resources
+                        byte[] zipFileData = Properties.Resources.App; // Tên file ZIP trong Resources
 
                         // Lưu file ZIP tạm thời vào bộ nhớ
                         string tempZipPath = Path.Combine(Path.GetTempPath(), "tempfile.zip");
@@ -137,18 +136,19 @@ namespace AppGenCode
             }
         }
 
+        DB db = new DB();
         private void cmdGenCode_Click(object sender, EventArgs e)
         {
             string sql_create_table = txtInput.Text;
-            string log = GenSP.Detect(sql_create_table, out tableName, out primaryKey, out fields);
-            string sql = GenSP.GenCodeSQL(tableName, primaryKey, fields);
+            string log = GenSP.Detect(sql_create_table, db);
+            string sql = GenSP.GenCodeSQL(db);
             txtSP.Text = log + Environment.NewLine + sql;
             txtSP.SelectionStart = 0;
             txtSP.SelectionLength = 0;
             txtSP.SelectedText = "";
             tabMain.SelectTab(tabSP);
 
-            txtJS.Text = GenJS.GenCodeJS(tableName, primaryKey, fields);
+            txtJS.Text = GenJS.GenCodeJS(db);
         }
 
     }
