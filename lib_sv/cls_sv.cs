@@ -139,6 +139,7 @@ namespace lib_sv
             }
             finally
             {
+                Log(action, json);
                 this.Response.Write(json);
             }
         }

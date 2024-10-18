@@ -1,4 +1,5 @@
 ﻿'use strict';
+/* file: lib___TABLE_NAME__.js */
 let lib = {};
 export function set_lib(L) { lib = L; }
 
@@ -76,7 +77,7 @@ function get___TABLE_NAME___content(dialog) {
 				'<table class="table table-hover" id="table-view-log"><thead>' +
 				'<tr class="table-info">' +
 				'<th class="text-center">STT</th>' +
-				__LIST_FIELDS_TH__
+__LIST_FIELDS_TH__
 			'<th class="text-center">Action</th>' +
 				'</tr>' +
 				'</thead><tbody>';
@@ -98,7 +99,7 @@ function get___TABLE_NAME___content(dialog) {
 						'</div>';
 					html += '<tr>' +
 						`<td class="text-center nowarp">${++stt}</td>` +
-						__LIST_FIELDS_TD__
+__LIST_FIELDS_TD__
 							`<td class="text-center nowarp">${action}</td>` +
 						'</tr>';
 				}
@@ -245,7 +246,7 @@ __HTML_FORM_EDIT_VALUE__`;
 	function submit_edit___TABLE_NAME__(dialog_edit) {
 		var data = {
 			action: '__TABLE_NAME___update',
-			__DATA_FORM_VAL__
+__DATA_FORM_VAL__
 		}
 		data.__primaryKey__ = __primaryKey__;
 		for (var item in data) {
@@ -360,3 +361,4 @@ function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 		}
 	});
 }
+/* kết thúc file: lib___TABLE_NAME__.js */

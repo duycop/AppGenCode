@@ -74,7 +74,7 @@ namespace AppGenCode
                     else if (d.Length == 5)
                     {
                         db.fields.Add(new Field(d[1], $"{d[3]}{d[4]}"));
-                        s += $"--field{++stt}\t--{d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
+                        s += $"--field{++stt}\t{d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
                     }else if (d.Length == 6)
                     {
                         db.fields.Add(new Field(d[1], d[3], d[5]));
@@ -83,7 +83,7 @@ namespace AppGenCode
                     else if (d.Length == 7)
                     {
                         db.fields.Add(new Field(d[1], $"{d[3]}{d[4]}", d[6]));
-                        s += $"--field{++stt}\t--{d[6]}: {d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
+                        s += $"--field{++stt}\t{d[6]}: {d[1]} => {d[3]}{d[4]}" + Environment.NewLine;
                     }
                 }
             }
@@ -126,6 +126,18 @@ namespace AppGenCode
             {
                 if (first) { first = false; continue; }
                 key.Add($"{beginLine}[{item.name}]=@{item.name}{endLine}");
+            }
+            string kq = String.Join(sep, key.ToArray());
+            return kq;
+        }
+        private static string ghepReport(DB db, string sep = ",", string beginLine = "", string endLine = "")
+        {
+            List<string> key = new List<string>();
+            bool first = true;
+            foreach (var item in db.fields)
+            {
+                if (first) { first = false; continue; }
+                key.Add($"{beginLine}@{item.name} as [{item.name}]{endLine}");
             }
             string kq = String.Join(sep, key.ToArray());
             return kq;
@@ -229,7 +241,7 @@ namespace AppGenCode
             spBuilder.AppendLine($"      ) VALUES (");
             spBuilder.AppendLine($"          {ghep(db, bien: "@")}");
             spBuilder.AppendLine($"      );");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_insert ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_insert ok' as [msg],{ghepReport(db)} FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
@@ -239,7 +251,7 @@ namespace AppGenCode
             spBuilder.AppendLine($"      UPDATE [{db.tableName}] SET");
             spBuilder.AppendLine($"        {ghepUpdate(db)}");
             spBuilder.AppendLine($"      WHERE [{db.primaryKey.name}] = @{db.primaryKey.name};");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_update ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_update ok' as [msg],{ghepReport(db)} FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 
@@ -247,7 +259,7 @@ namespace AppGenCode
             spBuilder.AppendLine($"    ELSE IF (@action = '{db.tableName}_delete')");
             spBuilder.AppendLine($"    BEGIN");
             spBuilder.AppendLine($"      DELETE FROM [{db.tableName}] WHERE [{db.primaryKey.name}] = @{db.primaryKey.name};");
-            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_delete ok' as [msg] for json path);");
+            spBuilder.AppendLine($"      SELECT @json=(SELECT 1 AS [ok],'{db.tableName}_delete ok' as [msg],@{db.primaryKey.name} as [{db.primaryKey.name}] FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);");
             spBuilder.AppendLine($"      SELECT @json as [json];");
             spBuilder.AppendLine($"    END");
 

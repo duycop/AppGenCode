@@ -97,8 +97,6 @@ namespace AppGenCode
             js_template = js_template.Replace("__HTML_FORM_ADD__", gen_html_form_add(db));
             js_template = js_template.Replace("__HTML_FORM_EDIT_VALUE__", gen_html_form_edit(db));
             spBuilder.AppendLine(js_template);
-
-            spBuilder.AppendLine($"// Kết thúc lib_{tableName}.js");
             return spBuilder.ToString();
 
         }

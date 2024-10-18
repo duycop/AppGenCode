@@ -6,6 +6,8 @@ using System.Text;
 using System.Web;
 using System.Web.SessionState;
 
+/* file: cls___TABLE_NAME__.cs  nằm trong project DLL độc lập: lib___TABLE_NAME__ */
+
 namespace lib___TABLE_NAME__
 {
     public class __TABLE_NAME_UP__
@@ -159,3 +161,5 @@ namespace lib___TABLE_NAME__
         }
     }
 }
+
+/* kết thúc file: cls___TABLE_NAME__.cs  nằm trong project DLL độc lập: lib___TABLE_NAME__ */
