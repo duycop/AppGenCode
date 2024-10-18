@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>ABC-XYZ</title>
+
+    <!--đoạn này để hiển thị tốt trên mobile và có biểu tượng-->
+    <meta name="author" content="Đỗ Duy Cốp. Tel: 0986516375">
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+    <link rel="manifest" href="icon/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--thư viện 1: jquery-->
+    <script src="asset/jquery.min.js"></script>
+
+    <!--thư viện 2: bootstrap-->
+    <link href="asset/bootstrap.min.css" rel="stylesheet" />
+    <script src="asset/bootstrap.bundle.min.js"></script>
+
+    <!--thư viện 3: jquery-ui: để kéo thả sinh css-->
+    <link href="asset/jquery-ui.min.css" rel="stylesheet" />
+    <script src="asset/jquery-ui.min.js"></script>
+
+    <!--thư viện 4: jquery-confirm : tạo các dialog đẹp-->
+    <link href="asset/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="asset/jquery-confirm.min.js"></script>
+
+    <!--thư viện để mã hoá-->
+    <script src="asset/crypto-js.min.js"></script>
+    <script src="asset/fp.min.js"></script>
+
+    <!--thư viện để sort+search+export dữ liệu trong table-->
+    <link href="asset/datatables.min.css" rel="stylesheet" />
+    <script src="asset/datatables.min.js"></script>
+
+    <!--thư viện để tạo toastr nổi gây chú ý, tự biến mất-->
+    <link href="asset/toastr.min.css" rel="stylesheet" />
+    <script src="asset/toastr.min.js"></script>
+
+    <!--thư viện chứa các icon đẹp-->
+    <link href="asset/fontawesome.all.min.css" rel="stylesheet" />
+
+    <!--thư viện vẽ biểu đồ - bản mod-->
+    <script src="asset/am5.js"></script>
+    <script src="asset/am5.xy.js"></script>
+    <script src="asset/am5.animated.js"></script>
+    <script src="asset/am5.responsive.js"></script>
+
+    <!--2 file tự chế để tạo css và viết code js-->
+    <link href="asset/main.css?m=2024-10-14" rel="stylesheet" />
+    <script type="module" src="/asset/main.js?m=2024-10-16.22h"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron text-white p-3 rounded">
+            <img class="logo" src="images/logo_lahien.png" />
+            <h1>HỆ THỐNG ABC</h1>
+            <p>Công ty XYZ</p>
+            <span id="user-info"></span>
+            <button class="btn btn-info cmd-login" title="Login"><i class="fa fa-key"></i></button>
+            <button class="btn btn-info no-display cmd-control-panel" title="Setting"><i class="fa fa-sliders"></i></button>
+            <button class="btn btn-danger no-display cmd-logout" title="Logout"><i class="fa fa-right-from-bracket"></i></button>
+        </div>
+        <!--chỗ này hiển thị các thông tin tổng quan và chi tiết của 14 tủ điện-->
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link " id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Tổng Quan</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="false">Chi tiết</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade " id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                        <div class="row" id="noi-dung-tong-quan">
+                            <div class="col-md-12">Tổng quan, sơ đồ hệ thống đang vận hành here</div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show active" id="detail-tab-pane" role="tabpanel" aria-labelledby="detail-tab" tabindex="0">
+                        <div class="row" id="noi-dung-chi-tiet"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

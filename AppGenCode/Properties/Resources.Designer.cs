@@ -66,22 +66,131 @@ namespace AppGenCode.Properties {
         ///&lt;head&gt;
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
         ///    &lt;title&gt;About&lt;/title&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h1&gt;Tool đẻ ra code cho Lập trình web&lt;/h1&gt;
-        ///    &lt;p&gt;Author: &lt;b&gt;Đỗ Duy Cốp&lt;/b&gt;&lt;/p&gt;
-        ///    &lt;p&gt;Create: 2024-10-17&lt;/p&gt;
-        ///    &lt;p&gt;
-        ///        &lt;b&gt;Ý tưởng&lt;/b&gt;:
-        ///        &lt;ol&gt;
-        ///        &lt;li&gt;Tạo table trên Sql Server bằng SQL Managerment Studio&lt;/li&gt;
-        ///        &lt;li&gt;Script table as \ CREATE to \ New windows =&amp;gt; Copy SQL =&amp;gt; Paste tab input SQL&lt;/li&gt;
-        ///        &lt;li&gt;Bấm nút GenCode&lt;/li&gt;
-        ///        &lt;li&gt;Sẽ tự động tạo SP với  [rest of string was truncated]&quot;;.
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-size: 18px;
+        ///            line-height: 30px;
+        ///            font-family: &quot;Noto Serif&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Helvetica Neue&quot;, &quot;Arial&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, serif;
+        ///            color: #333;
+        ///            overflow-wrap: break-word;
+        ///        }
+        ///    &lt;/style&gt;
+        ///    &lt;script&gt;
+        ///        function go_url(url) {
+        ///            wind [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string about {
             get {
                 return ResourceManager.GetString("about", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] app {
+            get {
+                object obj = ResourceManager.GetObject("app", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*main.css*/
+        ///body, html {
+        ///    margin-top: 0px;
+        ///}
+        ///
+        ///@font-face {
+        ///    font-family: &apos;FontAwesome&apos;;
+        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?v=4.7.0&apos;);
+        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?#iefix&amp;v=4.7.0&apos;) format(&apos;embedded-opentype&apos;),url(&apos;../webfonts/fontawesome-webfont.woff2?v=4.7.0&apos;) format(&apos;woff2&apos;),url(&apos;../webfonts/fontawesome-webfont.woff?v=4.7.0&apos;) format(&apos;woff&apos;),url(&apos;../webfonts/fontawesome-webfont.ttf?v=4.7.0&apos;) format(&apos;truetype&apos;),url(&apos;../webfonts/fontawesome-webfont.svg?v=4.7. [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string css {
+            get {
+                return ResourceManager.GetString("css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dl {
+            get {
+                object obj = ResourceManager.GetObject("dl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///&lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;ABC-XYZ&lt;/title&gt;
+        ///
+        ///    &lt;!--đoạn này để hiển thị tốt trên mobile và có biểu tượng--&gt;
+        ///    &lt;meta name=&quot;author&quot; content=&quot;Đỗ Duy Cốp. Tel: 0986516375&quot;&gt;
+        ///    &lt;meta charset=&apos;utf-8&apos; /&gt;
+        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+        ///    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
+        ///    &lt;meta name=&quot;mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
+        ///    &lt;link rel=&quot;apple-touch-icon&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string index {
+            get {
+                return ResourceManager.GetString("index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /* main.js */
+        ///&apos;use strict&apos;;
+        ///
+        ///let lib = {};
+        ///window.lib = lib;
+        ///export function load(name, callback = null) {
+        ///	import(&apos;/asset/lib_&apos;+name+&apos;.js?modify=2024.10.16.23h&apos;).then(module =&gt; {
+        ///		lib = lib || {};
+        ///		lib[name] = module;
+        ///		module.set_lib(lib);
+        ///		module.main();
+        ///		if (callback != null) callback();
+        ///	});
+        ///}
+        ///lib[&apos;load&apos;] = load;
+        ///load(&apos;user&apos;, function () {
+        ///	load(&apos;toastr&apos;);
+        ///	load(&apos;table&apos;);
+        ///	load(&apos;control&apos;);
+        ///	load(&apos;sensor&apos;);
+        ///});
+        ///
+        ///.
+        /// </summary>
+        internal static string js {
+            get {
+                return ResourceManager.GetString("js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;use strict&apos;;
+        ///let lib = {};
+        ///export function set_lib(L) { lib = L; }
+        ///
+        ///const api = &apos;/api.aspx&apos;;
+        ///function fix_dialog() {
+        ///	$(&apos;.jconfirm-holder&apos;).width($(&apos;.jconfirm-open&apos;).width());
+        ///}
+        ///export function main() {
+        ///	//init
+        ///}.
+        /// </summary>
+        internal static string lib_js {
+            get {
+                return ResourceManager.GetString("lib_js", resourceCulture);
             }
         }
         

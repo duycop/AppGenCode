@@ -30,8 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGenCode));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tabAbout = new System.Windows.Forms.TabPage();
+            this.cmdPaste = new System.Windows.Forms.Button();
             this.wb_about = new System.Windows.Forms.WebBrowser();
             this.tabInput = new System.Windows.Forms.TabPage();
             this.cmdGenCode = new System.Windows.Forms.Button();
@@ -40,6 +41,7 @@
             this.cmdCopySQL = new System.Windows.Forms.Button();
             this.txtSP = new System.Windows.Forms.TextBox();
             this.tabHTML = new System.Windows.Forms.TabPage();
+            this.picDL = new System.Windows.Forms.PictureBox();
             this.cmdCopyHTML = new System.Windows.Forms.Button();
             this.txtHTML = new System.Windows.Forms.TextBox();
             this.tabCSS = new System.Windows.Forms.TabPage();
@@ -52,37 +54,37 @@
             this.cmdCopyAPI = new System.Windows.Forms.Button();
             this.txtAPI = new System.Windows.Forms.TextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.cmdPaste = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.tabMain.SuspendLayout();
             this.tabAbout.SuspendLayout();
             this.tabInput.SuspendLayout();
             this.tabSP.SuspendLayout();
             this.tabHTML.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDL)).BeginInit();
             this.tabCSS.SuspendLayout();
             this.tabJS.SuspendLayout();
             this.tabAPI.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabMain
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabAbout);
-            this.tabControl1.Controls.Add(this.tabInput);
-            this.tabControl1.Controls.Add(this.tabSP);
-            this.tabControl1.Controls.Add(this.tabHTML);
-            this.tabControl1.Controls.Add(this.tabCSS);
-            this.tabControl1.Controls.Add(this.tabJS);
-            this.tabControl1.Controls.Add(this.tabAPI);
-            this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.ItemSize = new System.Drawing.Size(100, 44);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1007, 623);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 1;
+            this.tabMain.Controls.Add(this.tabAbout);
+            this.tabMain.Controls.Add(this.tabInput);
+            this.tabMain.Controls.Add(this.tabSP);
+            this.tabMain.Controls.Add(this.tabHTML);
+            this.tabMain.Controls.Add(this.tabCSS);
+            this.tabMain.Controls.Add(this.tabJS);
+            this.tabMain.Controls.Add(this.tabAPI);
+            this.tabMain.ImageList = this.imageList1;
+            this.tabMain.ItemSize = new System.Drawing.Size(100, 44);
+            this.tabMain.Location = new System.Drawing.Point(0, 0);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(1007, 623);
+            this.tabMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabMain.TabIndex = 1;
             // 
             // tabAbout
             // 
@@ -96,6 +98,21 @@
             this.tabAbout.TabIndex = 6;
             this.tabAbout.Text = "About";
             this.tabAbout.UseVisualStyleBackColor = true;
+            // 
+            // cmdPaste
+            // 
+            this.cmdPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdPaste.Image = global::AppGenCode.Properties.Resources.magic;
+            this.cmdPaste.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdPaste.Location = new System.Drawing.Point(848, 4);
+            this.cmdPaste.Name = "cmdPaste";
+            this.cmdPaste.Padding = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.cmdPaste.Size = new System.Drawing.Size(127, 52);
+            this.cmdPaste.TabIndex = 4;
+            this.cmdPaste.Text = "Paste SQL";
+            this.cmdPaste.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdPaste.UseVisualStyleBackColor = true;
+            this.cmdPaste.Click += new System.EventHandler(this.cmdPaste_Click);
             // 
             // wb_about
             // 
@@ -195,6 +212,7 @@
             // 
             // tabHTML
             // 
+            this.tabHTML.Controls.Add(this.picDL);
             this.tabHTML.Controls.Add(this.cmdCopyHTML);
             this.tabHTML.Controls.Add(this.txtHTML);
             this.tabHTML.ImageKey = "html.png";
@@ -205,6 +223,18 @@
             this.tabHTML.TabIndex = 4;
             this.tabHTML.Text = "HTML";
             this.tabHTML.UseVisualStyleBackColor = true;
+            // 
+            // picDL
+            // 
+            this.picDL.BackgroundImage = global::AppGenCode.Properties.Resources.dl;
+            this.picDL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picDL.Location = new System.Drawing.Point(848, 495);
+            this.picDL.Name = "picDL";
+            this.picDL.Size = new System.Drawing.Size(127, 52);
+            this.picDL.TabIndex = 6;
+            this.picDL.TabStop = false;
+            this.picDL.Visible = false;
+            this.picDL.Click += new System.EventHandler(this.picDownload_Click);
             // 
             // cmdCopyHTML
             // 
@@ -369,32 +399,17 @@
             this.imageList1.Images.SetKeyName(5, "css.png");
             this.imageList1.Images.SetKeyName(6, "about-icon.png");
             // 
-            // cmdPaste
-            // 
-            this.cmdPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdPaste.Image = global::AppGenCode.Properties.Resources.magic;
-            this.cmdPaste.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdPaste.Location = new System.Drawing.Point(848, 4);
-            this.cmdPaste.Name = "cmdPaste";
-            this.cmdPaste.Padding = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this.cmdPaste.Size = new System.Drawing.Size(127, 52);
-            this.cmdPaste.TabIndex = 4;
-            this.cmdPaste.Text = "Paste SQL";
-            this.cmdPaste.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdPaste.UseVisualStyleBackColor = true;
-            this.cmdPaste.Click += new System.EventHandler(this.cmdPaste_Click);
-            // 
             // frmGenCode
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1006, 619);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmGenCode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GenCode";
             this.Load += new System.EventHandler(this.frmGenCode_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
             this.tabAbout.ResumeLayout(false);
             this.tabInput.ResumeLayout(false);
             this.tabInput.PerformLayout();
@@ -402,6 +417,7 @@
             this.tabSP.PerformLayout();
             this.tabHTML.ResumeLayout(false);
             this.tabHTML.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDL)).EndInit();
             this.tabCSS.ResumeLayout(false);
             this.tabCSS.PerformLayout();
             this.tabJS.ResumeLayout(false);
@@ -414,7 +430,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabInput;
         private System.Windows.Forms.TabPage tabJS;
         private System.Windows.Forms.ImageList imageList1;
@@ -437,6 +453,7 @@
         private System.Windows.Forms.TabPage tabAbout;
         private System.Windows.Forms.WebBrowser wb_about;
         private System.Windows.Forms.Button cmdPaste;
+        private System.Windows.Forms.PictureBox picDL;
     }
 }
 
