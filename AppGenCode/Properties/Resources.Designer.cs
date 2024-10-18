@@ -71,7 +71,7 @@ namespace AppGenCode.Properties {
         ///            font-size: 18px;
         ///            line-height: 30px;
         ///            font-family: &quot;Noto Serif&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Helvetica Neue&quot;, &quot;Arial&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, serif;
-        ///            color: #333;
+        ///            color: #000;
         ///            overflow-wrap: break-word;
         ///        }
         ///    &lt;/style&gt;
@@ -175,24 +175,57 @@ namespace AppGenCode.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to using Newtonsoft.Json;
+        ///using System;
+        ///using System.Collections.Generic;
+        ///using System.Data.SqlClient;
+        ///using System.Text;
+        ///using System.Web;
+        ///using System.Web.SessionState;
+        ///
+        ///namespace lib___TABLE_NAME__
+        ///{
+        ///    public class __TABLE_NAME_UP__
+        ///    {
+        ///        private const string SP = &quot;SP___TABLE_NAME__&quot;;
+        ///        public string cnstr;
+        ///
+        ///        private HttpRequest Request;
+        ///        private HttpSessionState Session;
+        ///        private HttpResponse Response;
+        ///
+        ///        private lib_user.User user;
+        ///        pri [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string lib_csharp {
+            get {
+                return ResourceManager.GetString("lib_csharp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;use strict&apos;;
         ///let lib = {};
         ///export function set_lib(L) { lib = L; }
         ///
-        ///const api = &apos;/api.aspx&apos;;
+        ///const api = &apos;/api/&apos;;
         ///function fix_dialog() {
         ///	$(&apos;.jconfirm-holder&apos;).width($(&apos;.jconfirm-open&apos;).width());
         ///}
         ///export function main() {
         ///	//init
         ///}
-        ///function get___TABLE_NAME___content(dialog) {
-        ///	let tieu_de = &apos;Danh sách __TABLE_NAME__&apos;;
-        ///	$.post(api, { action: &apos;__TABLE_NAME___get_all&apos; }, function (json) {
-        ///		var html = &apos;&apos;;
-        ///		if (json.ok) {
-        ///			html = &apos;&lt;div class=&quot;table-responsive&quot; style=&quot;height-max:100px&quot;&gt;&apos; +
-        ///				&apos;&lt;table class=&quot; [rest of string was truncated]&quot;;.
+        ///function bao_loi(msg, callback = null) {
+        ///	$.confirm({
+        ///		title: &apos;Báo lỗi&apos;,
+        ///		content: msg,
+        ///		icon: &apos;fa-solid fa-triangle-exclamation&apos;,
+        ///		type: &apos;red&apos;,
+        ///		animation: &apos;rotateYR&apos;,
+        ///		closeAnimation: &apos;rotateYR&apos;,
+        ///		animationBounce: 1.5,
+        ///		animateFromElement: false,
+        ///		autoClose: &apos;ok|3000&apos;,        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lib_js {
             get {

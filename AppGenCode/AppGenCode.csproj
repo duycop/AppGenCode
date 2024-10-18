@@ -52,6 +52,7 @@
       <DependentUpon>frmGenCode.cs</DependentUpon>
     </Compile>
     <Compile Include="gen_js.cs" />
+    <Compile Include="gen_dll.cs" />
     <Compile Include="gen_sp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,7 @@
     <None Include="app\asset\main.css" />
     <None Include="app\asset\main.js" />
     <None Include="app\asset\lib_js.js" />
+    <Content Include="app\asset\lib_csharp.txt" />
     <Content Include="magic.ico" />
     <Content Include="Resources\about.html" />
   </ItemGroup>

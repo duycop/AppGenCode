@@ -6,11 +6,11 @@ using System.Text;
 using System.Web;
 using System.Web.SessionState;
 
-namespace lib_sv
+namespace lib___TABLE_NAME__
 {
-    public class SV
+    public class __TABLE_NAME_UP__
     {
-        private const string SP = "SP_SV";
+        private const string SP = "SP___TABLE_NAME_UP__";
         public string cnstr;
 
         private HttpRequest Request;
@@ -39,7 +39,7 @@ namespace lib_sv
             OnAddLog(key, message);
         }
 
-        public SV(System.Web.UI.Page papa, lib_user.User user, string cnstr)
+        public __TABLE_NAME_UP__(System.Web.UI.Page papa, lib_user.User user, string cnstr)
         {
             this.Request = papa.Request;
             this.Session = papa.Session;
@@ -71,7 +71,7 @@ namespace lib_sv
             return JsonConvert.SerializeObject(p);
         }
 
-        void sv_get_all()
+        void __TABLE_NAME___get_all()
         {
             string json = "";
             try
@@ -80,12 +80,12 @@ namespace lib_sv
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        json = db.get_json("sv_get_all", cmd);
+                        json = db.get_json("__TABLE_NAME___get_all", cmd);
                     }
                 }
                 else
                 {
-                    json = get_json_bao_loi($"Bạn không có quyền xem Danh sách sv");
+                    json = get_json_bao_loi($"Bạn không có quyền xem Danh sách __TABLE_NAME__");
                 }
             }
             catch (Exception ex)
@@ -109,17 +109,17 @@ namespace lib_sv
                     {
                         switch (action)
                         {
-                            case "sv_insert":
-                            case "sv_update":
-                            case "sv_delete":
-                                cmd.Parameters.Add("masv", System.Data.SqlDbType.Int).Value = Request.Form["masv"];
+                            case "__TABLE_NAME___insert":
+                            case "__TABLE_NAME___update":
+                            case "__TABLE_NAME___delete":
+                                cmd.Parameters.Add("__primaryKey__", System.Data.SqlDbType.Int).Value = Request.Form["__primaryKey__"];
                                 break;
                         }
 
                         switch (action)
                         {
-                            case "sv_insert":
-                            case "sv_update":
+                            case "__TABLE_NAME___insert":
+                            case "__TABLE_NAME___update":
                                 cmd.Parameters.Add("hoten", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["hoten"];
                                 cmd.Parameters.Add("qq", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["qq"];
                                 cmd.Parameters.Add("tien", System.Data.SqlDbType.Float).Value = Request.Form["tien"];
@@ -147,17 +147,15 @@ namespace lib_sv
         {
             switch (action)
             {
-                case "sv_get_all":
-                    sv_get_all();
+                case "__TABLE_NAME___get_all":
+                    __TABLE_NAME___get_all();
                     break;
-                case "sv_insert":
-                case "sv_update":
-                case "sv_delete":
-                    sv_insert_update_delete(action);
+                case "__TABLE_NAME___insert":
+                case "__TABLE_NAME___update":
+                case "__TABLE_NAME___delete":
+                    __TABLE_NAME___insert_update_delete(action);
                     break;
             }
         }
     }
 }
-
-// Kết thúc lib_sv.cs => dll

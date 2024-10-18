@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib_user", "lib_user\lib_us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib_sv", "lib_sv\lib_sv.csproj", "{9D5AB4E6-E26D-4F7D-AFBA-1DEA3A3331E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib_sensor", "lib_sensor\lib_sensor.csproj", "{530BCCD3-5768-4675-BD7F-79DA7C081D7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib_map", "lib_map\lib_map.csproj", "{064B3EAE-55A1-4078-907C-3C2AEBCC4719}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{9D5AB4E6-E26D-4F7D-AFBA-1DEA3A3331E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D5AB4E6-E26D-4F7D-AFBA-1DEA3A3331E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D5AB4E6-E26D-4F7D-AFBA-1DEA3A3331E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{530BCCD3-5768-4675-BD7F-79DA7C081D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530BCCD3-5768-4675-BD7F-79DA7C081D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530BCCD3-5768-4675-BD7F-79DA7C081D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530BCCD3-5768-4675-BD7F-79DA7C081D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{064B3EAE-55A1-4078-907C-3C2AEBCC4719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064B3EAE-55A1-4078-907C-3C2AEBCC4719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064B3EAE-55A1-4078-907C-3C2AEBCC4719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064B3EAE-55A1-4078-907C-3C2AEBCC4719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

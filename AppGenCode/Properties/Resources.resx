@@ -142,4 +142,7 @@
   <data name="App" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\App.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lib_csharp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\app\asset\lib_csharp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

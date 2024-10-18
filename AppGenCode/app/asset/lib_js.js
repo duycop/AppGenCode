@@ -9,6 +9,64 @@ function fix_dialog() {
 export function main() {
 	//init
 }
+function bao_loi(msg, callback = null) {
+	$.confirm({
+		title: 'Báo lỗi',
+		content: msg,
+		icon: 'fa-solid fa-triangle-exclamation',
+		type: 'red',
+		animation: 'rotateYR',
+		closeAnimation: 'rotateYR',
+		animationBounce: 1.5,
+		animateFromElement: false,
+		autoClose: 'ok|3000',
+		buttons: {
+			ok: {
+				text: '<i class="fa fa-circle-xmark"></i> OK',
+				btnClass: 'btn-danger',
+				keys: ['esc', 'enter'],
+				action: function () {
+					this.close();
+				}
+			}
+		},
+		onDestroy: function () {
+			if (callback != null) callback()
+		},
+		onContentReady: function () {
+			fix_dialog();
+		}
+	});
+}
+function thong_bao(title, content) {
+	$.confirm({
+		title: title,
+		content: content,
+		icon: 'fa-regular fa-circle-check',
+		columnClass: 's',
+		type: 'blue',
+		animation: 'rotateYR',
+		closeAnimation: 'rotateYR',
+		animationBounce: 1.5,
+		animateFromElement: false,
+		closeIcon: true,
+		autoClose: 'ok|5000',
+		buttons: {
+			ok: {
+				text: 'OK',
+				keys: ['esc', 'enter'],
+				btnClass: 'btn-info',
+				action: function () {
+					this.close();
+				}
+			}
+		},
+		onContentReady: function () {
+			fix_dialog();
+		}
+	});
+}
+var js___TABLE_NAME__;
 function get___TABLE_NAME___content(dialog) {
 	let tieu_de = 'Danh sách __TABLE_NAME__';
 	$.post(api, { action: '__TABLE_NAME___get_all' }, function (json) {
@@ -17,15 +75,18 @@ function get___TABLE_NAME___content(dialog) {
 			html = '<div class="table-responsive" style="height-max:100px">' +
 				'<table class="table table-hover" id="table-view-log"><thead>' +
 				'<tr class="table-info">' +
-					'<th class="text-center">STT</th>' +
-__LIST_FIELDS_TH__
-					'<th class="text-center">Action</th>' +
+				'<th class="text-center">STT</th>' +
+				__LIST_FIELDS_TH__
+			'<th class="text-center">Action</th>' +
 				'</tr>' +
 				'</thead><tbody>';
 			//show html ra 1 dialog
 			if (json.data) {
+				js___TABLE_NAME__ = json;
+				js___TABLE_NAME__['map'] = {};
 				var stt = 0;
 				for (var item of json.data) {
+					js___TABLE_NAME__.map[item.__primaryKey__] = item;
 					var action = '<div class="dropdown">' +
 						'<button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown">' +
 						'Action ...' +
@@ -36,10 +97,10 @@ __LIST_FIELDS_TH__
 						'</ul>' +
 						'</div>';
 					html += '<tr>' +
-					`<td class="text-center nowarp">${++stt}</td>` +
-__LIST_FIELDS_TD__
-					`<td class="text-center nowarp">${action}</td>` +
-					'</tr>';
+						`<td class="text-center nowarp">${++stt}</td>` +
+						__LIST_FIELDS_TD__
+							`<td class="text-center nowarp">${action}</td>` +
+						'</tr>';
 				}
 			} else {
 				html += '<tr class="table-warning">' +
@@ -47,12 +108,12 @@ __LIST_FIELDS_TD__
 					'</tr>';
 			}
 			html += '</tbody></table></div>';
+
 		} else html = json.msg;
 		dialog.setContent(html);
 		if (json.ok) {
-			lib.toastr.tip('info', 'Tải dữ liệu __TABLE_NAME__ thành công', '^_^');
+			lib.toastr.tip('info', 'Thông báo', 'Tải dữ liệu __TABLE_NAME__ thành công');
 			lib.table.sort_table('#table-view-__TABLE_NAME__', tieu_de, 10);
-
 			$('.cmd-action-__TABLE_NAME__').click(function () {
 				var action = $(this).data('action');
 				var __primaryKey__ = $(this).data('__primaryKey__');
@@ -111,34 +172,34 @@ export function show___TABLE_NAME__() {
 function action_addnew___TABLE_NAME__(dialog_pp) {
 	function form_add___TABLE_NAME__() {
 		var html = `
-__HTML_FORM_INPUT__`;
+__HTML_FORM_ADD__`;
 		return html;
 	}
 	function submit_add___TABLE_NAME__() {
 		var data = {
 			action: '__TABLE_NAME___insert',
-__DATA_FORM_VAL__
+			__DATA_FORM_VAL__
 		}
 		for (var item in data) {
-			//if (data.uid == '') {
-			//	bao_loi('Chưa nhập uid', function () { $('#nhap-uid').focus(); });
-			//	return;
-			//}
-			console.log(item);
+			if (data[item] == '') {
+				var label = $('#label-__TABLE_NAME__-' + item).html();
+				bao_loi('Chưa nhập ' + label, function () { $('#input-__TABLE_NAME__-' + item).focus(); });
+				return;
+			}
 		}
-		return;
 		$.post(api, data,
 			function (json) {
 				if (json.ok) {
-					lib.toastr.tip('info', 'Thông báo', 'Đã add __TABLE_NAME__ thành công');
-					get___TABLE_NAME___content(dialog_pp); //tải lại ds __TABLE_NAME__
+					var msg = `Đã thêm __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					lib.toastr.tip('info', 'Thông báo', msg);
+					thong_bao('Thông báo', msg);
+					get_sv_content(dialog_pp); //tải lại ds
 					dialog_add.close(); //đóng thằng dialog_add lại
 				} else {
-					bao_loi(json.msg);//báo lỗi khi add_user
+					bao_loi(json.msg);//báo lỗi 
 				}
 			}, 'json'
-		);//end $.post
-
+		);//end $.post add
 	}
 	var dialog_add = $.confirm({
 		title: 'Add __TABLE_NAME__',
@@ -175,34 +236,124 @@ __DATA_FORM_VAL__
 
 }
 function action_edit___TABLE_NAME__(dialog_pp, __primaryKey__) {
-	alert('edit code here for edit '+__primaryKey__)
-}
-function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
-	alert('edit code here for delete ' + __primaryKey__)
-}
-export function bao_loi(msg, callback = null) {
+	function form_edit___TABLE_NAME__(__primaryKey__) {
+		var item = js___TABLE_NAME__.map[__primaryKey__];
+		var html = `
+__HTML_FORM_EDIT_VALUE__`;
+		return html;
+	}
+	function submit_edit___TABLE_NAME__(dialog_edit) {
+		var data = {
+			action: '__TABLE_NAME___update',
+			__DATA_FORM_VAL__
+		}
+		data.__primaryKey__ = __primaryKey__;
+		for (var item in data) {
+			if (data[item] == '') {
+				var label = $('#label-__TABLE_NAME__-' + item).html();
+				bao_loi('Chưa nhập ' + label, function () { $('#input-__TABLE_NAME__-' + item).focus(); });
+				return;
+			}
+		}
+		$.post(api, data,
+			function (json) {
+				if (json.ok) {
+					var msg = `Đã cập nhật __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					lib.toastr.tip('info', 'Thông báo', msg);
+					thong_bao('Thông báo', msg);
+					get_sv_content(dialog_pp); //tải lại ds
+					dialog_edit.close(); //đóng thằng dialog_edit lại
+				} else {
+					bao_loi(json.msg);//báo lỗi 
+				}
+			}, 'json'
+		);//end $.post
+	}
 	$.confirm({
-		title: 'Báo lỗi',
-		content: msg,
-		icon: 'fa-solid fa-triangle-exclamation',
-		type: 'red',
+		title: 'Edit __TABLE_NAME__',
+		icon: 'fa-solid fa-file-pen',
+		type: 'blue',
+		content: form_edit___TABLE_NAME__(__primaryKey__),
 		animation: 'rotateYR',
 		closeAnimation: 'rotateYR',
 		animationBounce: 1.5,
 		animateFromElement: false,
-		autoClose: 'ok|3000',
+		columnClass: 'm',
+		closeIcon: true,
 		buttons: {
-			ok: {
-				text: '<i class="fa fa-circle-xmark"></i> OK',
+			add: {
+				text: '<i class="fa-solid fa-file-pen"></i> Edit __TABLE_NAME__',
+				btnClass: 'btn-primary',
+				action: function () {
+					submit_edit___TABLE_NAME__(this);
+					return false; //ko đóng
+				}
+			},
+			cancel: {
+				text: '<i class="fa fa-circle-xmark"></i> Cancel',
 				btnClass: 'btn-danger',
-				keys: ['esc', 'enter'],
 				action: function () {
 					this.close();
 				}
 			}
 		},
-		onDestroy: function () {
-			if (callback != null) callback()
+		onContentReady: function () {
+			fix_dialog();
+		}
+	});
+}
+function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
+	function form_delete___TABLE_NAME__(__primaryKey__) {
+		var item = js___TABLE_NAME__.map[__primaryKey__];
+		var html = `Xác nhận xoá __TABLE_NAME__: ${item.__primaryKey__} ?`;
+		return html;
+	}
+	function submit_delete___TABLE_NAME__(dialog_delete) {
+		var data = {
+			action: '__TABLE_NAME___delete',
+			__primaryKey__: __primaryKey__
+		}
+		$.post(api, data,
+			function (json) {
+				if (json.ok) {
+					var msg = `Đã xoá __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					lib.toastr.tip('info', 'Thông báo', msg);
+					thong_bao('Thông báo', msg);
+					get_sv_content(dialog_pp); //tải lại ds
+					dialog_delete.close(); //đóng thằng dialog_delete lại
+				} else {
+					bao_loi(json.msg);//báo lỗi 
+				}
+			}, 'json'
+		);//end $.post
+	}
+	$.confirm({
+		title: 'Delete __TABLE_NAME__',
+		icon: 'fa-solid fa-trash',
+		type: 'blue',
+		content: form_delete___TABLE_NAME__(__primaryKey__),
+		animation: 'rotateYR',
+		closeAnimation: 'rotateYR',
+		animationBounce: 1.5,
+		animateFromElement: false,
+		columnClass: 'm',
+		closeIcon: true,
+		buttons: {
+			add: {
+				text: '<i class="fa-solid fa-trash"></i> Delete __TABLE_NAME__',
+				btnClass: 'btn-primary',
+				action: function () {
+					submit_delete___TABLE_NAME__(this);
+					return false; //ko đóng
+				}
+			},
+			cancel: {
+				text: '<i class="fa fa-circle-xmark"></i> Cancel',
+				btnClass: 'btn-danger',
+				action: function () {
+					this.close();
+				}
+			}
 		},
 		onContentReady: function () {
 			fix_dialog();

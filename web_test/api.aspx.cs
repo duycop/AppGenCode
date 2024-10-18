@@ -102,6 +102,9 @@ namespace web
                     sensor.Run(action);
                     break;
                 case "sv_get_all":
+                case "sv_insert":
+                case "sv_update":
+                case "sv_delete":
                     sv.Run(action);
                     break;
                 default:

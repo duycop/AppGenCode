@@ -92,10 +92,14 @@
     <Content Include="asset\jquery-ui.min.js" />
     <Content Include="asset\jquery.min.js" />
     <Content Include="asset\lib_control.js" />
+    <Content Include="asset\lib_dieukhien.js" />
     <Content Include="asset\lib_excel.js" />
     <Content Include="asset\lib_log.js" />
+    <Content Include="asset\lib_phong.js" />
     <Content Include="asset\lib_role.js" />
+    <Content Include="asset\lib_sensor.js" />
     <Content Include="asset\lib_setting.js" />
+    <Content Include="asset\lib_map.js" />
     <Content Include="asset\lib_sv.js" />
     <Content Include="asset\lib_table.js" />
     <Content Include="asset\lib_toastr.js" />
@@ -132,6 +136,10 @@
     <ProjectReference Include="..\lib_log\lib_log.csproj">
       <Project>{3be94114-d96f-4a99-89b3-12872b39f3b4}</Project>
       <Name>lib_log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_sensor\lib_sensor.csproj">
+      <Project>{530bccd3-5768-4675-bd7f-79da7c081d7d}</Project>
+      <Name>lib_sensor</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib_setting\lib_setting.csproj">
       <Project>{1f5e90e0-deea-4ed5-b07d-5cd8f01db491}</Project>

@@ -88,17 +88,18 @@ namespace AppGenCode
                 txtHTML.Text = Properties.Resources.index;
                 txtCSS.Text = Properties.Resources.css;
                 txtJS.Text = Properties.Resources.js;
+                tabMain.SelectTab(tabInput);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message,"ERROR");
             }
         }
 
         #endregion
 
 
-        
+
 
         private void picDownload_Click(object sender, EventArgs e)
         {
@@ -142,14 +143,15 @@ namespace AppGenCode
             string sql_create_table = txtInput.Text;
             string log = GenSP.Detect(sql_create_table, db);
             string sql = GenSP.GenCodeSQL(db);
+
+            txtJS.Text = GenJS.GenCodeJS(db);
+            txtAPI.Text = GenDLL.GenCodeDLL(db);
+
             txtSP.Text = log + Environment.NewLine + sql;
             txtSP.SelectionStart = 0;
             txtSP.SelectionLength = 0;
             txtSP.SelectedText = "";
             tabMain.SelectTab(tabSP);
-
-            txtJS.Text = GenJS.GenCodeJS(db);
         }
-
     }
 }
