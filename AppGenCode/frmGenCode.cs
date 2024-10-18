@@ -93,15 +93,16 @@ namespace AppGenCode
         #endregion
 
        
-        string tableName;
+        string tableName, primaryKey;
         Dictionary<string, string> fields;
 
         private void cmdGenCode_Click(object sender, EventArgs e)
         {
             string sql_create_table = txtInput.Text;
-            string log = GenSP.Detect(sql_create_table, out tableName, out fields);
-            string sql = GenSP.GenSQL(tableName, fields);
+            string log = GenSP.Detect(sql_create_table, out tableName, out primaryKey, out fields);
+            string sql = GenSP.GenSQL(tableName, primaryKey, fields);
             txtSP.Text = log + Environment.NewLine + sql;
+            tabControl1.SelectedTab = tabSP;
         }
 
     }
