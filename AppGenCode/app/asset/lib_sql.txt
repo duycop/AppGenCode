@@ -1,6 +1,6 @@
-﻿-- Bắt đầu SP___TABLE_NAME_UP__
+﻿-- Bắt đầu SP___TABLE_NAME__
 
-CREATE PROCEDURE [dbo].[SP___TABLE_NAME_UP__]
+CREATE PROCEDURE [dbo].[SP___TABLE_NAME__]
     @action NVARCHAR(50),
     __DS_TRUONG_KHAI_BAO__
     @TopN INT = NULL,

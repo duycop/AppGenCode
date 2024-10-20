@@ -124,12 +124,12 @@ __LIST_FIELDS_TD__
 	}, 'json')
 }
 export function show___TABLE_NAME__() {
-	var tieu_de = 'DANH SÁCH __TABLE_NAME__';
+	var tieu_de = 'DANH SÁCH __TABLE_TITLE__';
 	var dialog_log = $.confirm({
 		title: tieu_de,
 		icon: 'fa-solid fa-clock-rotate-left',
 		type: 'blue',
-		content: 'Loading danh sách __TABLE_NAME__...',
+		content: 'Loading danh sách __TABLE_TITLE__...',
 		animation: 'rotateYR',
 		closeAnimation: 'rotateYR',
 		animationBounce: 1.5,

@@ -39,7 +39,7 @@ namespace web
             return JsonConvert.SerializeObject(p);
         }
 
-        //begin-copy-here
+        //begin-copy-here step 1/2 __TABLE_NAME__
         private lib___TABLE_NAME__.__TABLE_NAME__ __TABLE_NAME_LF__;
         //end-copy-here
         
@@ -63,11 +63,6 @@ namespace web
             {
                 log.add_log(key, msg);
             };
-
-            //begin-copy-here
-            __TABLE_NAME_LF__ = new lib___TABLE_NAME__.__TABLE_NAME__(this, user, cnstr);
-            __TABLE_NAME_LF__.add_log += (string key, string msg) => { log.add_log(key, msg); };
-            //end-copy-here
         }
        
         
@@ -107,14 +102,20 @@ namespace web
                 case "control_coil":
                     sensor.Run(action);
                     break;
-                //begin-copy-here
+
+                //begin-copy-here-for step 2/2 __TABLE_NAME__
+
                 case "__TABLE_NAME___get_all":
                 case "__TABLE_NAME___insert":
                 case "__TABLE_NAME___update":
                 case "__TABLE_NAME___delete":
+                    __TABLE_NAME_LF__ = new lib___TABLE_NAME__.__TABLE_NAME__(this, user, cnstr);
+                    __TABLE_NAME_LF__.add_log += (string key, string msg) => { log.add_log(key, msg); };
                     __TABLE_NAME_LF__.Run(action);
                     break;
-                //end-copy-here
+
+                //end-copy-here-for __TABLE_NAME__
+
                 default:
                     user.bao_loi("Lỗi báo từ API: Hãy kiểm tra lại action="+action);
                     break;
