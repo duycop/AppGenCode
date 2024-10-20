@@ -67,8 +67,10 @@ function thong_bao(title, content) {
 		}
 	});
 }
-function get___TABLE_NAME___content(dialog) {
-	let tieu_de = 'Danh sách __TABLE_TITLE__';
+export function get_content(callback = null, cache = 0) {
+	if (cache && setting.data && callback) {
+		callback(setting.data, setting.html_get_all)
+	}
 	$.post(api, { action: '__TABLE_NAME___get_all' }, function (json) {
 		var html = '';
 		if (json.ok) {
@@ -76,7 +78,7 @@ function get___TABLE_NAME___content(dialog) {
 				'<table class="table table-hover" id="table-view-log"><thead>' +
 				'<tr class="table-info">' +
 				'<th class="text-center">STT</th>' +
-__LIST_FIELDS_TH__
+				__LIST_FIELDS_TH__
 			'<th class="text-center">Action</th>' +
 				'</tr>' +
 				'</thead><tbody>';
@@ -98,7 +100,7 @@ __LIST_FIELDS_TH__
 						'</div>';
 					html += '<tr>' +
 						`<td class="text-center nowarp">${++stt}</td>` +
-__LIST_FIELDS_TD__
+						__LIST_FIELDS_TD__
 							`<td class="text-center nowarp">${action}</td>` +
 						'</tr>';
 				}
@@ -110,6 +112,16 @@ __LIST_FIELDS_TD__
 			html += '</tbody></table></div>';
 
 		} else html = json.msg;
+
+		setting.html_get_all = html;
+		if (callback != null) {
+			callback(json, html);
+		}
+	}, 'json');
+}
+function get___TABLE_NAME___content(dialog) {
+	let tieu_de = 'Danh sách __TABLE_TITLE__';
+	get_content(function (json, html) {
 		dialog.setContent(html);
 		if (json.ok) {
 			lib.toastr.tip('info', 'Thông báo', 'Tải dữ liệu __TABLE_TITLE__ thành công');
@@ -121,7 +133,7 @@ __LIST_FIELDS_TD__
 				if (action == 'delete') action_delete___TABLE_NAME__(dialog, __primaryKey__);
 			});
 		}
-	}, 'json')
+	}, 0);
 }
 export function show___TABLE_NAME__() {
 	var tieu_de = 'DANH SÁCH __TABLE_TITLE__';
