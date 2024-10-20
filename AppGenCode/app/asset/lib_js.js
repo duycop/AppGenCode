@@ -119,7 +119,7 @@ export function get_content(callback = null, cache = 0) {
 		}
 	}, 'json');
 }
-function get___TABLE_NAME___content(dialog) {
+function get___TABLE_NAME___content(dialog, cache=0) {
 	let tieu_de = 'Danh sách __TABLE_TITLE__';
 	get_content(function (json, html) {
 		dialog.setContent(html);
@@ -133,7 +133,7 @@ function get___TABLE_NAME___content(dialog) {
 				if (action == 'delete') action_delete___TABLE_NAME__(dialog, __primaryKey__);
 			});
 		}
-	}, 0);
+	}, cache);
 }
 export function show___TABLE_NAME__() {
 	var tieu_de = 'DANH SÁCH __TABLE_TITLE__';
@@ -175,8 +175,10 @@ export function show___TABLE_NAME__() {
 				}
 			}
 		},
+		onOpenBefore: function () {
+			get___TABLE_NAME___content(this,1);
+		},
 		onContentReady: function () {
-			get___TABLE_NAME___content(this);
 			fix_dialog();
 		},
 	});
