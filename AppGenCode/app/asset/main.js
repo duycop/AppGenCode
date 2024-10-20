@@ -1,6 +1,5 @@
 ﻿/* main.js */
 'use strict';
-
 let lib = {};
 window.lib = lib;
 export function load(name, callback = null) {
@@ -17,6 +16,6 @@ load('user', function () {
 	load('toastr');
 	load('table');
 	load('control');
-	load('sensor');
 });
 
+/* kết thúc main.js */

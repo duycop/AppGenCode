@@ -351,6 +351,7 @@ function action_delete_sv(dialog_pp, masv) {
 		return html;
 	}
 	function submit_delete_sv(dialog_delete) {
+		var item = js_sv.map[masv];
 		var data = {
 			action: 'sv_delete',
 			masv: masv
@@ -358,7 +359,7 @@ function action_delete_sv(dialog_pp, masv) {
 		$.post(api, data,
 			function (json) {
 				if (json.ok) {
-					var msg = `Đã xoá sv ${data.masv} - ${data.hoten} thành công`;
+					var msg = `Đã xoá sv ${data.masv} - ${item.hoten} thành công`;
 					lib.toastr.tip('info', 'Thông báo', msg);
 					thong_bao('Thông báo', msg);
 					get_sv_content(dialog_pp); //tải lại ds

@@ -1,8 +1,7 @@
-﻿'use strict';
-/* file: lib___TABLE_NAME__.js */
+﻿/* file: lib___TABLE_NAME__.js */
+'use strict';
 let lib = {};
 export function set_lib(L) { lib = L; }
-
 const api = '/api/';
 function fix_dialog() {
 	$('.jconfirm-holder').width($('.jconfirm-open').width());
@@ -69,7 +68,7 @@ function thong_bao(title, content) {
 }
 var js___TABLE_NAME__;
 function get___TABLE_NAME___content(dialog) {
-	let tieu_de = 'Danh sách __TABLE_NAME__';
+	let tieu_de = 'Danh sách __TABLE_TITLE__';
 	$.post(api, { action: '__TABLE_NAME___get_all' }, function (json) {
 		var html = '';
 		if (json.ok) {
@@ -105,7 +104,7 @@ __LIST_FIELDS_TD__
 				}
 			} else {
 				html += '<tr class="table-warning">' +
-					`<td colspan="__COUNT_FIELDS__">KHÔNG CÓ DỮ LIỆU __TABLE_NAME__</td>` +
+					`<td colspan="__COUNT_FIELDS__">KHÔNG CÓ DỮ LIỆU __TABLE_TITLE__</td>` +
 					'</tr>';
 			}
 			html += '</tbody></table></div>';
@@ -113,7 +112,7 @@ __LIST_FIELDS_TD__
 		} else html = json.msg;
 		dialog.setContent(html);
 		if (json.ok) {
-			lib.toastr.tip('info', 'Thông báo', 'Tải dữ liệu __TABLE_NAME__ thành công');
+			lib.toastr.tip('info', 'Thông báo', 'Tải dữ liệu __TABLE_TITLE__ thành công');
 			lib.table.sort_table('#table-view-__TABLE_NAME__', tieu_de, 10);
 			$('.cmd-action-__TABLE_NAME__').click(function () {
 				var action = $(this).data('action');
@@ -191,10 +190,10 @@ __HTML_FORM_ADD__`;
 		$.post(api, data,
 			function (json) {
 				if (json.ok) {
-					var msg = `Đã thêm __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					var msg = `Đã thêm __TABLE_TITLE__ ${data.__primaryKey__} thành công`;
 					lib.toastr.tip('info', 'Thông báo', msg);
 					thong_bao('Thông báo', msg);
-					get_sv_content(dialog_pp); //tải lại ds
+					get___TABLE_NAME___content(dialog_pp); //tải lại ds
 					dialog_add.close(); //đóng thằng dialog_add lại
 				} else {
 					bao_loi(json.msg);//báo lỗi 
@@ -203,7 +202,7 @@ __HTML_FORM_ADD__`;
 		);//end $.post add
 	}
 	var dialog_add = $.confirm({
-		title: 'Add __TABLE_NAME__',
+		title: 'Add __TABLE_TITLE__',
 		icon: 'fa-solid fa-file-circle-plus',
 		type: 'blue',
 		content: form_add___TABLE_NAME__(),
@@ -259,10 +258,10 @@ __DATA_FORM_VAL__
 		$.post(api, data,
 			function (json) {
 				if (json.ok) {
-					var msg = `Đã cập nhật __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					var msg = `Đã cập nhật __TABLE_TITLE__ ${data.__primaryKey__} thành công`;
 					lib.toastr.tip('info', 'Thông báo', msg);
 					thong_bao('Thông báo', msg);
-					get_sv_content(dialog_pp); //tải lại ds
+					get___TABLE_NAME___content(dialog_pp); //tải lại ds
 					dialog_edit.close(); //đóng thằng dialog_edit lại
 				} else {
 					bao_loi(json.msg);//báo lỗi 
@@ -271,7 +270,7 @@ __DATA_FORM_VAL__
 		);//end $.post
 	}
 	$.confirm({
-		title: 'Edit __TABLE_NAME__',
+		title: 'Edit __TABLE_TITLE__',
 		icon: 'fa-solid fa-file-pen',
 		type: 'blue',
 		content: form_edit___TABLE_NAME__(__primaryKey__),
@@ -283,7 +282,7 @@ __DATA_FORM_VAL__
 		closeIcon: true,
 		buttons: {
 			add: {
-				text: '<i class="fa-solid fa-file-pen"></i> Edit __TABLE_NAME__',
+				text: '<i class="fa-solid fa-file-pen"></i> Edit',
 				btnClass: 'btn-primary',
 				action: function () {
 					submit_edit___TABLE_NAME__(this);
@@ -306,7 +305,7 @@ __DATA_FORM_VAL__
 function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 	function form_delete___TABLE_NAME__(__primaryKey__) {
 		var item = js___TABLE_NAME__.map[__primaryKey__];
-		var html = `Xác nhận xoá __TABLE_NAME__: ${item.__primaryKey__} ?`;
+		var html = `Xác nhận xoá __TABLE_TITLE__: ${item.__primaryKey__} ?`;
 		return html;
 	}
 	function submit_delete___TABLE_NAME__(dialog_delete) {
@@ -317,10 +316,10 @@ function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 		$.post(api, data,
 			function (json) {
 				if (json.ok) {
-					var msg = `Đã xoá __TABLE_NAME__ ${data.__primaryKey__} thành công`;
+					var msg = `Đã xoá __TABLE_TITLE__ ${data.__primaryKey__} thành công`;
 					lib.toastr.tip('info', 'Thông báo', msg);
 					thong_bao('Thông báo', msg);
-					get_sv_content(dialog_pp); //tải lại ds
+					get___TABLE_NAME___content(dialog_pp); //tải lại ds
 					dialog_delete.close(); //đóng thằng dialog_delete lại
 				} else {
 					bao_loi(json.msg);//báo lỗi 
@@ -329,7 +328,7 @@ function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 		);//end $.post
 	}
 	$.confirm({
-		title: 'Delete __TABLE_NAME__',
+		title: 'Delete __TABLE_TITLE__',
 		icon: 'fa-solid fa-trash',
 		type: 'blue',
 		content: form_delete___TABLE_NAME__(__primaryKey__),
@@ -341,7 +340,7 @@ function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 		closeIcon: true,
 		buttons: {
 			add: {
-				text: '<i class="fa-solid fa-trash"></i> Delete __TABLE_NAME__',
+				text: '<i class="fa-solid fa-trash"></i> Delete',
 				btnClass: 'btn-primary',
 				action: function () {
 					submit_delete___TABLE_NAME__(this);

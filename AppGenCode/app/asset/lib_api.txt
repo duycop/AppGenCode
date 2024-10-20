@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿/* file api.aspx.cs : Đây là file điều hướng từ các request tới các DLL độc lập */
+using Newtonsoft.Json;
 using System;
 using System.Configuration;
 using System.Web.Configuration;
@@ -15,7 +16,6 @@ namespace web
         private lib_log.Log log;
         private lib_setting.Setting setting;
         private lib_sensor.Sensor sensor;
-        private lib_sv.SV sv;
 
         class PhanHoi
         {
@@ -30,6 +30,19 @@ namespace web
             cnstr = ConfigurationManager.ConnectionStrings["cnstr"].ConnectionString;
             url_control = ConfigurationManager.AppSettings["control_coil"];
         }
+
+        public string get_json_bao_loi(string msg, bool ok = false)
+        {
+            PhanHoi p = new PhanHoi();
+            p.ok = ok;
+            p.msg = msg;
+            return JsonConvert.SerializeObject(p);
+        }
+
+        //begin-copy-here
+        private lib___TABLE_NAME__.__TABLE_NAME_UP_ __TABLE_NAME_LF__;
+        //end-copy-here
+        
         void init_objects()
         {
             user = new lib_user.User(this, cnstr);            
@@ -50,30 +63,23 @@ namespace web
             {
                 log.add_log(key, msg);
             };
-            sv.add_log += (string key, string msg) =>
+
+            //begin-copy-here
+            __TABLE_NAME_LF__.add_log += (string key, string msg) =>
             {
                 log.add_log(key, msg);
             };
+            //end-copy-here
         }
-        public string get_json_bao_loi(string msg, bool ok = false)
-        {
-            PhanHoi p = new PhanHoi();
-            p.ok = ok;
-            p.msg = msg;
-            return JsonConvert.SerializeObject(p);
-        }
+       
         
         protected void Page_Load(object sender, EventArgs e)
         {
             init_objects();
             string action = this.Request.Form["action"];
-            string json_check_login_quick;
-            bool ok = user.check_login_quick(out json_check_login_quick);
             switch (action)
             {
                 case "check_logined":
-                    Response.Write(json_check_login_quick);
-                    break;
                 case "login":
                 case "logout":
                 case "GenerateSalt":
@@ -103,12 +109,14 @@ namespace web
                 case "control_coil":
                     sensor.Run(action);
                     break;
-                case "sv_get_all":
-                case "sv_insert":
-                case "sv_update":
-                case "sv_delete":
-                    sv.Run(action);
+                //begin-copy-here
+                case "__TABLE_NAME___get_all":
+                case "__TABLE_NAME___insert":
+                case "__TABLE_NAME___update":
+                case "__TABLE_NAME___delete":
+                    __TABLE_NAME_LF__.Run(action);
                     break;
+                //end-copy-here
                 default:
                     user.bao_loi("Lỗi báo từ API: Hãy kiểm tra lại action="+action);
                     break;

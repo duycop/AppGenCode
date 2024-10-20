@@ -86,8 +86,9 @@ namespace AppGenCode
                 wb_about.ObjectForScripting = this;
                 wb_about.DocumentText = Properties.Resources.about;
                 txtHTML.Text = Properties.Resources.index;
-                txtCSS.Text = Properties.Resources.css;
-                txtJS.Text = Properties.Resources.js;
+                txtCSS.Text = Properties.Resources.main_css;
+                txtJS.Text = Properties.Resources.main_js;
+                txtAPI.Text = Properties.Resources.lib_api;
                 tabMain.SelectTab(tabInput);
             }
             catch (Exception ex)
@@ -145,13 +146,19 @@ namespace AppGenCode
             string sql = GenSP.GenCodeSQL(db);
 
             txtJS.Text = GenJS.GenCodeJS(db);
-            txtAPI.Text = GenDLL.GenCodeDLL(db);
+            txtAPI.Text = GenDLL.GenCodeAPI(db);
+            txtDLL.Text = GenDLL.GenCodeDLL(db);
 
             txtSP.Text = log + Environment.NewLine + sql;
             txtSP.SelectionStart = 0;
             txtSP.SelectionLength = 0;
             txtSP.SelectedText = "";
             tabMain.SelectTab(tabSP);
+        }
+
+        private void cmdCopyDLL_Click(object sender, EventArgs e)
+        {
+            copy(txtDLL);
         }
     }
 }

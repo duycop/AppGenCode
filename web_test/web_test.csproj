@@ -108,6 +108,7 @@
     <Content Include="asset\main.js" />
     <Content Include="asset\toastr.min.css" />
     <Content Include="asset\toastr.min.js" />
+    <Content Include="db\create_db.sql" />
     <Content Include="Global.asax" />
     <Content Include="icon\android-chrome-192x192.png" />
     <Content Include="icon\android-chrome-512x512.png" />

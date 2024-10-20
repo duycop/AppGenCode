@@ -96,23 +96,6 @@ namespace AppGenCode.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /*main.css*/
-        ///body, html {
-        ///    margin-top: 0px;
-        ///}
-        ///
-        ///@font-face {
-        ///    font-family: &apos;FontAwesome&apos;;
-        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?v=4.7.0&apos;);
-        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?#iefix&amp;v=4.7.0&apos;) format(&apos;embedded-opentype&apos;),url(&apos;../webfonts/fontawesome-webfont.woff2?v=4.7.0&apos;) format(&apos;woff2&apos;),url(&apos;../webfonts/fontawesome-webfont.woff?v=4.7.0&apos;) format(&apos;woff&apos;),url(&apos;../webfonts/fontawesome-webfont.ttf?v=4.7.0&apos;) format(&apos;truetype&apos;),url(&apos;../webfonts/fontawesome-webfont.svg?v=4.7. [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string css {
-            get {
-                return ResourceManager.GetString("css", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap dl {
@@ -144,33 +127,28 @@ namespace AppGenCode.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /* main.js */
-        ///&apos;use strict&apos;;
+        ///   Looks up a localized string similar to /* file api.aspx.cs : Đây là file điều hướng từ các request tới các DLL độc lập */
+        ///using Newtonsoft.Json;
+        ///using System;
+        ///using System.Configuration;
+        ///using System.Web.Configuration;
+        ///using static lib_user.User;
         ///
-        ///let lib = {};
-        ///window.lib = lib;
-        ///export function load(name, callback = null) {
-        ///	import(&apos;/asset/lib_&apos;+name+&apos;.js?modify=2024.10.16.23h&apos;).then(module =&gt; {
-        ///		lib = lib || {};
-        ///		lib[name] = module;
-        ///		module.set_lib(lib);
-        ///		module.main();
-        ///		if (callback != null) callback();
-        ///	});
-        ///}
-        ///lib[&apos;load&apos;] = load;
-        ///load(&apos;user&apos;, function () {
-        ///	load(&apos;toastr&apos;);
-        ///	load(&apos;table&apos;);
-        ///	load(&apos;control&apos;);
-        ///	load(&apos;sensor&apos;);
-        ///});
-        ///
-        ///.
+        ///namespace web
+        ///{
+        ///    public partial class api : System.Web.UI.Page
+        ///    {
+        ///        private string cnstr;
+        ///        private string url_control;
+        ///        private lib_user.User user;
+        ///       
+        ///        private lib_log.Log log;
+        ///        private lib_setting.Setting setting;
+        ///        private lib_sensor [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string js {
+        internal static string lib_api {
             get {
-                return ResourceManager.GetString("js", resourceCulture);
+                return ResourceManager.GetString("lib_api", resourceCulture);
             }
         }
         
@@ -183,19 +161,17 @@ namespace AppGenCode.Properties {
         ///using System.Web;
         ///using System.Web.SessionState;
         ///
+        ////* file: cls___TABLE_NAME__.cs  nằm trong project DLL độc lập: lib___TABLE_NAME__ */
+        ///
         ///namespace lib___TABLE_NAME__
         ///{
         ///    public class __TABLE_NAME_UP__
         ///    {
-        ///        private const string SP = &quot;SP___TABLE_NAME__&quot;;
+        ///        private const string SP = &quot;SP___TABLE_NAME_UP__&quot;;
         ///        public string cnstr;
         ///
         ///        private HttpRequest Request;
-        ///        private HttpSessionState Session;
-        ///        private HttpResponse Response;
-        ///
-        ///        private lib_user.User user;
-        ///        pri [rest of string was truncated]&quot;;.
+        ///        private HttpSessionState Session;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lib_csharp {
             get {
@@ -204,10 +180,10 @@ namespace AppGenCode.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;use strict&apos;;
+        ///   Looks up a localized string similar to /* file: lib___TABLE_NAME__.js */
+        ///&apos;use strict&apos;;
         ///let lib = {};
         ///export function set_lib(L) { lib = L; }
-        ///
         ///const api = &apos;/api/&apos;;
         ///function fix_dialog() {
         ///	$(&apos;.jconfirm-holder&apos;).width($(&apos;.jconfirm-open&apos;).width());
@@ -224,12 +200,34 @@ namespace AppGenCode.Properties {
         ///		animation: &apos;rotateYR&apos;,
         ///		closeAnimation: &apos;rotateYR&apos;,
         ///		animationBounce: 1.5,
-        ///		animateFromElement: false,
-        ///		autoClose: &apos;ok|3000&apos;,        /// [rest of string was truncated]&quot;;.
+        ///		animateFromElement: [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lib_js {
             get {
                 return ResourceManager.GetString("lib_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CLREATE PROCEDURE [dbo].[SP___TABLE_NAME_UP__]
+        ///    @action NVARCHAR(50),
+        ///    __DS_TRUONG_KHAI_BAO__
+        ///    @TopN INT = NULL,
+        ///    @Page INT = NULL,
+        ///    @NumberPerPage INT = NULL,
+        ///    @q NVARCHAR(100) = NULL --search text
+        ///AS
+        ///BEGIN
+        ///    DECLARE @json nvarchar(max)=&apos;&apos;;  --  biến chứa json để trả về
+        ///    -- Thao tác get_all với bảng [__TABLE_NAME__]
+        ///    IF (@action = &apos;__TABLE_NAME___get_all&apos;)
+        ///    BEGIN
+        ///      SELECT @json=(SELECT 1 AS [ok], &apos;__TABLE_NAME___get_all ok&apos; AS [msg],(
+        ///        SELECT __DS_TRUON [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string lib_sql {
+            get {
+                return ResourceManager.GetString("lib_sql", resourceCulture);
             }
         }
         
@@ -240,6 +238,53 @@ namespace AppGenCode.Properties {
             get {
                 object obj = ResourceManager.GetObject("magic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*main.css*/
+        ///body, html {
+        ///    margin-top: 0px;
+        ///}
+        ///
+        ///@font-face {
+        ///    font-family: &apos;FontAwesome&apos;;
+        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?v=4.7.0&apos;);
+        ///    src: url(&apos;../webfonts/fontawesome-webfont.eot?#iefix&amp;v=4.7.0&apos;) format(&apos;embedded-opentype&apos;),url(&apos;../webfonts/fontawesome-webfont.woff2?v=4.7.0&apos;) format(&apos;woff2&apos;),url(&apos;../webfonts/fontawesome-webfont.woff?v=4.7.0&apos;) format(&apos;woff&apos;),url(&apos;../webfonts/fontawesome-webfont.ttf?v=4.7.0&apos;) format(&apos;truetype&apos;),url(&apos;../webfonts/fontawesome-webfont.svg?v=4.7. [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string main_css {
+            get {
+                return ResourceManager.GetString("main_css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /* main.js */
+        ///&apos;use strict&apos;;
+        ///let lib = {};
+        ///window.lib = lib;
+        ///export function load(name, callback = null) {
+        ///	import(&apos;/asset/lib_&apos;+name+&apos;.js?modify=2024.10.16.23h&apos;).then(module =&gt; {
+        ///		lib = lib || {};
+        ///		lib[name] = module;
+        ///		module.set_lib(lib);
+        ///		module.main();
+        ///		if (callback != null) callback();
+        ///	});
+        ///}
+        ///lib[&apos;load&apos;] = load;
+        ///load(&apos;user&apos;, function () {
+        ///	load(&apos;toastr&apos;);
+        ///	load(&apos;table&apos;);
+        ///	load(&apos;control&apos;);
+        ///});
+        ///
+        ////* kết thúc main.js */
+        ///.
+        /// </summary>
+        internal static string main_js {
+            get {
+                return ResourceManager.GetString("main_js", resourceCulture);
             }
         }
     }

@@ -90,6 +90,8 @@
     <None Include="app\asset\main.css" />
     <None Include="app\asset\main.js" />
     <None Include="app\asset\lib_js.js" />
+    <Content Include="app\asset\lib_sql.txt" />
+    <Content Include="app\asset\lib_api.txt" />
     <Content Include="app\asset\lib_csharp.txt" />
     <Content Include="magic.ico" />
     <Content Include="Resources\about.html" />

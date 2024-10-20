@@ -100,7 +100,7 @@ namespace lib___TABLE_NAME__
             }
         }
 
-        void sv_insert_update_delete(string action)
+        void __TABLE_NAME___insert_update_delete(string action)
         {
             string json = "";
             try
@@ -122,9 +122,10 @@ namespace lib___TABLE_NAME__
                         {
                             case "__TABLE_NAME___insert":
                             case "__TABLE_NAME___update":
-                                cmd.Parameters.Add("hoten", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["hoten"];
-                                cmd.Parameters.Add("qq", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["qq"];
-                                cmd.Parameters.Add("tien", System.Data.SqlDbType.Float).Value = Request.Form["tien"];
+                                //cmd.Parameters.Add("hoten", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["hoten"];
+                                //cmd.Parameters.Add("qq", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["qq"];
+                                //cmd.Parameters.Add("tien", System.Data.SqlDbType.Float).Value = Request.Form["tien"];
+__LIST_SP_PARAM_POST__
                                 break;
                         }
                         json = db.get_json(action, cmd);
@@ -141,6 +142,7 @@ namespace lib___TABLE_NAME__
             }
             finally
             {
+                Log(action,$"{user.uid}: {json}");
                 this.Response.Write(json);
             }
         }

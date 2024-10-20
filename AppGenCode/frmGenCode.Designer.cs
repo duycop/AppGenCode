@@ -53,6 +53,9 @@
             this.tabAPI = new System.Windows.Forms.TabPage();
             this.cmdCopyAPI = new System.Windows.Forms.Button();
             this.txtAPI = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtDLL = new System.Windows.Forms.TextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabMain.SuspendLayout();
             this.tabAbout.SuspendLayout();
@@ -63,6 +66,7 @@
             this.tabCSS.SuspendLayout();
             this.tabJS.SuspendLayout();
             this.tabAPI.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -77,6 +81,7 @@
             this.tabMain.Controls.Add(this.tabCSS);
             this.tabMain.Controls.Add(this.tabJS);
             this.tabMain.Controls.Add(this.tabAPI);
+            this.tabMain.Controls.Add(this.tabPage1);
             this.tabMain.ImageList = this.imageList1;
             this.tabMain.ItemSize = new System.Drawing.Size(100, 44);
             this.tabMain.Location = new System.Drawing.Point(0, 0);
@@ -387,6 +392,47 @@
             this.txtAPI.TabIndex = 3;
             this.txtAPI.WordWrap = false;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.txtDLL);
+            this.tabPage1.ImageKey = "c_sharp.png";
+            this.tabPage1.Location = new System.Drawing.Point(4, 48);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(999, 571);
+            this.tabPage1.TabIndex = 7;
+            this.tabPage1.Text = "DLL";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Image = global::AppGenCode.Properties.Resources.magic;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(848, 4);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.button1.Size = new System.Drawing.Size(127, 52);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Copy DLL#";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.cmdCopyDLL_Click);
+            // 
+            // txtDLL
+            // 
+            this.txtDLL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDLL.Location = new System.Drawing.Point(0, 0);
+            this.txtDLL.Multiline = true;
+            this.txtDLL.Name = "txtDLL";
+            this.txtDLL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDLL.Size = new System.Drawing.Size(997, 570);
+            this.txtDLL.TabIndex = 4;
+            this.txtDLL.WordWrap = false;
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -424,6 +470,8 @@
             this.tabJS.PerformLayout();
             this.tabAPI.ResumeLayout(false);
             this.tabAPI.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -454,6 +502,9 @@
         private System.Windows.Forms.WebBrowser wb_about;
         private System.Windows.Forms.Button cmdPaste;
         private System.Windows.Forms.PictureBox picDL;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtDLL;
     }
 }
 

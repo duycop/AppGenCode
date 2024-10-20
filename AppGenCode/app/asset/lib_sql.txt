@@ -1,0 +1,105 @@
+﻿-- Bắt đầu SP___TABLE_NAME_UP__
+
+CREATE PROCEDURE [dbo].[SP___TABLE_NAME_UP__]
+    @action NVARCHAR(50),
+    __DS_TRUONG_KHAI_BAO__
+    @TopN INT = NULL,
+    @Page INT = NULL,
+    @NumberPerPage INT = NULL,
+    @q NVARCHAR(100) = NULL --search text
+AS
+BEGIN
+    DECLARE @json nvarchar(max)='';  --  biến chứa json để trả về
+    -- Thao tác get_all với bảng [__TABLE_NAME__]
+    IF (@action = '__TABLE_NAME___get_all')
+    BEGIN
+      SELECT @json=(SELECT 1 AS [ok], '__TABLE_NAME___get_all ok' AS [msg],(
+        SELECT __DS_TRUONG_SELECT__
+        FROM [__TABLE_NAME__]
+        ORDER BY [__primaryKey__]
+        FOR JSON PATH) AS data
+      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác get_page với bảng [__TABLE_NAME__]
+    IF (@action = '__TABLE_NAME___get_page')
+    BEGIN
+      SELECT @json=(SELECT 1 AS [ok], '__TABLE_NAME___get_page ok' AS [msg],(
+        SELECT __DS_TRUONG_SELECT__
+        FROM [__TABLE_NAME__]
+        ORDER BY [__primaryKey__]
+        OFFSET (@Page - 1) * @NumberPerPage ROWS
+        FETCH NEXT @NumberPerPage ROWS ONLY
+        FOR JSON PATH) AS data
+      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác get_top với bảng [__TABLE_NAME__]
+    ELSE IF (@action = '__TABLE_NAME___get_top')
+    BEGIN
+      IF(@TopN IS NULL)SET @TopN=100;
+      SELECT @json=(SELECT 1 AS [ok], '__TABLE_NAME___get_top ok' AS [msg],(
+        SELECT TOP(@TopN) __DS_TRUONG_SELECT__
+        FROM [__TABLE_NAME__]
+        ORDER BY [__primaryKey__]
+        FOR JSON PATH) AS data
+      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác search theo @q với bảng [__TABLE_NAME__]
+    ELSE IF (@action = '__TABLE_NAME___search')
+    BEGIN
+      SET @q = '%'+@q+'%';
+      SELECT @json=(SELECT 1 AS [ok], '__TABLE_NAME___search ok' AS [msg],(
+        SELECT __DS_TRUONG_SELECT__
+        FROM [__TABLE_NAME__]
+        WHERE __DS_TRUONG_SEARCH_LIKE__
+        ORDER BY [__primaryKey__]
+        FOR JSON PATH) AS data
+      FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác insert với bảng [__TABLE_NAME__]
+    ELSE IF (@action = '__TABLE_NAME___insert')
+    BEGIN
+	  if exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
+	  begin
+		raiserror(N'Đã tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		return;
+	  end
+      INSERT INTO [__TABLE_NAME__] (
+          __DS_TRUONG_INSERT__
+      ) VALUES (
+          __DS_TRUONG_VALUE__
+      );
+      SELECT @json=(SELECT 1 AS [ok],'__TABLE_NAME___insert ok' as [msg],__DS_TRUONG_SELECT__ from [__TABLE_NAME__] where [__primaryKey__]=@__primaryKey__ FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác update với bảng [__TABLE_NAME__]
+    ELSE IF (@action = '__TABLE_NAME___update')
+    BEGIN
+	  if not exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
+	  begin
+		raiserror(N'Không tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		return;
+	  end
+      UPDATE [__TABLE_NAME__] SET
+        __DS_TRUONG_UPDATE__
+      WHERE [__primaryKey__] = @__primaryKey__;
+      SELECT @json=(SELECT 1 AS [ok],'__TABLE_NAME___update ok' as [msg],__DS_TRUONG_SELECT__ from [__TABLE_NAME__] where [__primaryKey__]=@__primaryKey__ FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      SELECT @json as [json];
+    END
+    -- Thao tác delete với bảng [__TABLE_NAME__]
+    ELSE IF (@action = '__TABLE_NAME___delete')
+    BEGIN
+	  if not exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
+	  begin
+		raiserror(N'Không tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		return;
+	  end
+      SELECT @json=(SELECT 1 AS [ok],'__TABLE_NAME___delete ok' as [msg],__DS_TRUONG_SELECT__ from [__TABLE_NAME__] where [__primaryKey__]=@__primaryKey__ FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+      DELETE FROM [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__;
+      SELECT @json as [json];
+    END
+END;
+-- Kết thúc SP___TABLE_NAME_UP__

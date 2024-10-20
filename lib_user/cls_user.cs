@@ -141,6 +141,102 @@ namespace lib_user
             string json = get_json_bao_loi(msg);
             this.Response.Write(json);
         }
+
+        public bool check_login_quick(out string json)
+        {
+            string error = "";
+            bool ok = false;
+            json = "";
+            try
+            {
+                try
+                {
+                    object obj = this.Session["user-info"];
+                    if (obj == null)
+                    {
+                        error = "Session chưa login. ";
+                    }
+                    else
+                    {
+                        LoginData m = (LoginData)this.Session["user-info"]; //hàm check_logined
+                        if (m.ok == 1)
+                        {
+                            string fp = this.Request.Form["fp"];
+                            ok = m.fp.Equals(fp, StringComparison.OrdinalIgnoreCase);
+                            if (ok)
+                            {
+                                this.Session["count_login"] = 0;
+                                json = JsonConvert.SerializeObject(m);
+                                return ok;
+                            }
+                            else
+                            {
+                                error += "Có gì đó sai sai. ";
+                            }
+                        }
+                        else
+                        {
+                            error += "Chưa lưu user-info. ";
+                        }
+                    }
+                }
+                catch (Exception ex1)
+                {
+                    error += $"Exception1: {ex1.Message}. ";
+                }
+
+                if (!ok)
+                {
+                    string log = "";
+                    error += "Chuẩn bị CHECK_COOKIE. ";
+                    if (cookie.CHECK_COOKIE(out log))
+                    {
+                        string uid = this.Request.Cookies["uid"].Value.ToString();
+                        error += $"Lấy đc uid={uid}. ";
+                        json = db_get_user(uid); //lấy thông tin user theo uid, ko cần pwd
+                                                 //chuyển json -> obj LoginData
+                        error += $"Đã user-info vào json. ";
+                        LoginData m = JsonConvert.DeserializeObject<LoginData>(json); //hàm login2
+                        error += $"Đã chuyển json thành obj m. ";
+                        if (m.ok == 1)
+                        {
+                            m.fp = this.Request.Form["fp"];
+                            //lưu m vào session
+                            this.Session["user-info"] = m;
+                            error += $"Đã lưu obj m và session. ";
+                            count_login_reset();
+                            //this.Log($"Login OK", $"{uid}: {m.name}, Last Login: {m.lastLogin}");
+                            ok = true;
+                            m.ck = this.Request.Cookies["ck"].Value.ToString();
+                            json = JsonConvert.SerializeObject(m);
+                            return ok;
+                        }
+                    }
+                    else
+                    {
+                        error += $"log={log}. ";
+                        error += "Chưa lưu vết đăng nhập cookie. ";
+                    }
+                    error += $"log check_ck={log}. ";
+                }
+            }
+            catch (Exception ex)
+            {
+                error += $"Lỗi gì đó: {ex.Message}. ";
+            }
+            finally
+            {
+                if (!ok)
+                {
+                    PhanHoi p = new PhanHoi();
+                    p.ok = false;
+                    p.msg = error;
+                    json = JsonConvert.SerializeObject(p);
+                }
+            }
+            return ok;
+        }
+
         public void check_logined()
         {
             string error = "";
@@ -205,7 +301,7 @@ namespace lib_user
                             count_login_reset();
                             //this.Log($"Login OK", $"{uid}: {m.name}, Last Login: {m.lastLogin}");
                             ok = true;
-                            m.ck= this.Request.Cookies["ck"].Value.ToString();
+                            m.ck = this.Request.Cookies["ck"].Value.ToString();
                             json = JsonConvert.SerializeObject(m);
                             this.Response.Write(json);
                         }

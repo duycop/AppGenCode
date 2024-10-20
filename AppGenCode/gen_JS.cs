@@ -87,8 +87,11 @@ namespace AppGenCode
             string tableName = db.tableName;
             string primaryKey = db.primaryKey.name;
             StringBuilder spBuilder = new StringBuilder();
+            //string main_js = Properties.Resources.main_js;
             string js_template = Properties.Resources.lib_js;
+
             js_template = js_template.Replace("__TABLE_NAME__", tableName);
+            js_template = js_template.Replace("__TABLE_TITLE__", db.titleTable);
             js_template = js_template.Replace("__LIST_FIELDS_TH__", gen_html(db, "th"));
             js_template = js_template.Replace("__LIST_FIELDS_TD__", gen_html(db, "td"));
             js_template = js_template.Replace("__COUNT_FIELDS__", (db.fields.Count + 2).ToString());
@@ -96,7 +99,9 @@ namespace AppGenCode
             js_template = js_template.Replace("__DATA_FORM_VAL__", gen_data_form_val(db));
             js_template = js_template.Replace("__HTML_FORM_ADD__", gen_html_form_add(db));
             js_template = js_template.Replace("__HTML_FORM_EDIT_VALUE__", gen_html_form_edit(db));
-            spBuilder.AppendLine(js_template);
+            //spBuilder.AppendLine(main_js + Environment.NewLine + js_template);
+            spBuilder.AppendLine( js_template);
+
             return spBuilder.ToString();
 
         }
