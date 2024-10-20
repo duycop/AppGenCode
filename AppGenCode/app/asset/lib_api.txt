@@ -40,7 +40,7 @@ namespace web
         }
 
         //begin-copy-here
-        private lib___TABLE_NAME__.__TABLE_NAME_UP_ __TABLE_NAME_LF__;
+        private lib___TABLE_NAME__.__TABLE_NAME__ __TABLE_NAME_LF__;
         //end-copy-here
         
         void init_objects()
@@ -65,10 +65,8 @@ namespace web
             };
 
             //begin-copy-here
-            __TABLE_NAME_LF__.add_log += (string key, string msg) =>
-            {
-                log.add_log(key, msg);
-            };
+            __TABLE_NAME_LF__ = new lib___TABLE_NAME__.__TABLE_NAME__(this, user, cnstr);
+            __TABLE_NAME_LF__.add_log += (string key, string msg) => { log.add_log(key, msg); };
             //end-copy-here
         }
        

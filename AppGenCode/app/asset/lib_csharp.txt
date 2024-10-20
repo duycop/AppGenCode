@@ -10,9 +10,9 @@ using System.Web.SessionState;
 
 namespace lib___TABLE_NAME__
 {
-    public class __TABLE_NAME_UP__
+    public class __TABLE_NAME__
     {
-        private const string SP = "SP___TABLE_NAME_UP__";
+        private const string SP = "SP___TABLE_NAME__";
         public string cnstr;
 
         private HttpRequest Request;
@@ -41,7 +41,7 @@ namespace lib___TABLE_NAME__
             OnAddLog(key, message);
         }
 
-        public __TABLE_NAME_UP__(System.Web.UI.Page papa, lib_user.User user, string cnstr)
+        public __TABLE_NAME__(System.Web.UI.Page papa, lib_user.User user, string cnstr)
         {
             this.Request = papa.Request;
             this.Session = papa.Session;
