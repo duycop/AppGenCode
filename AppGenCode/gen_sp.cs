@@ -184,6 +184,7 @@ namespace AppGenCode
             StringBuilder spBuilder = new StringBuilder();
             string str = Properties.Resources.lib_sql;
             str = str.Replace("__TABLE_NAME__", tableName);
+            str = str.Replace("__TABLE_TITLE__", db.titleTable);
             str = str.Replace("__TABLE_NAME_UP__", tableName.ToUpper());
             str = str.Replace("__primaryKey__", primaryKey);
             str = str.Replace("__DS_TRUONG_KHAI_BAO__", get__DS_TRUONG_KHAI_BAO__(db));

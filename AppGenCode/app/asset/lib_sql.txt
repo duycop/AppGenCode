@@ -64,7 +64,7 @@ BEGIN
     BEGIN
 	  if exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
 	  begin
-		raiserror(N'Đã tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		raiserror(N'Đã tồn tại mã __TABLE_TITLE__ %d',16,1,@__primaryKey__);
 		return;
 	  end
       INSERT INTO [__TABLE_NAME__] (
@@ -80,7 +80,7 @@ BEGIN
     BEGIN
 	  if not exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
 	  begin
-		raiserror(N'Không tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		raiserror(N'Không tồn tại mã __TABLE_TITLE__ %d',16,1,@__primaryKey__);
 		return;
 	  end
       UPDATE [__TABLE_NAME__] SET
@@ -94,7 +94,7 @@ BEGIN
     BEGIN
 	  if not exists(select * from [__TABLE_NAME__] WHERE [__primaryKey__] = @__primaryKey__)
 	  begin
-		raiserror(N'Không tồn tại mã __TABLE_NAME__ %d',16,1,@__primaryKey__);
+		raiserror(N'Không tồn tại mã __TABLE_TITLE__ %d',16,1,@__primaryKey__);
 		return;
 	  end
       SELECT @json=(SELECT 1 AS [ok],'__TABLE_NAME___delete ok' as [msg],__DS_TRUONG_SELECT__ from [__TABLE_NAME__] where [__primaryKey__]=@__primaryKey__ FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);

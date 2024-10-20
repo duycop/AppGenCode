@@ -2,6 +2,7 @@
 'use strict';
 let lib = {};
 export function set_lib(L) { lib = L; }
+export const setting = {data:null}
 const api = '/api/';
 function fix_dialog() {
 	$('.jconfirm-holder').width($('.jconfirm-open').width());
@@ -66,7 +67,6 @@ function thong_bao(title, content) {
 		}
 	});
 }
-var js___TABLE_NAME__;
 function get___TABLE_NAME___content(dialog) {
 	let tieu_de = 'Danh sách __TABLE_TITLE__';
 	$.post(api, { action: '__TABLE_NAME___get_all' }, function (json) {
@@ -82,11 +82,11 @@ __LIST_FIELDS_TH__
 				'</thead><tbody>';
 			//show html ra 1 dialog
 			if (json.data) {
-				js___TABLE_NAME__ = json;
-				js___TABLE_NAME__['map'] = {};
+				setting.data = json;
+				setting.data['map'] = {};
 				var stt = 0;
 				for (var item of json.data) {
-					js___TABLE_NAME__.map[item.__primaryKey__] = item;
+					setting.data.map[item.__primaryKey__] = item;
 					var action = '<div class="dropdown">' +
 						'<button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown">' +
 						'Action ...' +
@@ -237,7 +237,7 @@ __HTML_FORM_ADD__`;
 }
 function action_edit___TABLE_NAME__(dialog_pp, __primaryKey__) {
 	function form_edit___TABLE_NAME__(__primaryKey__) {
-		var item = js___TABLE_NAME__.map[__primaryKey__];
+		var item = setting.data.map[__primaryKey__];
 		var html = `
 __HTML_FORM_EDIT_VALUE__`;
 		return html;
@@ -304,7 +304,7 @@ __DATA_FORM_VAL__
 }
 function action_delete___TABLE_NAME__(dialog_pp, __primaryKey__) {
 	function form_delete___TABLE_NAME__(__primaryKey__) {
-		var item = js___TABLE_NAME__.map[__primaryKey__];
+		var item = setting.data.map[__primaryKey__];
 		var html = `Xác nhận xoá __TABLE_TITLE__: ${item.__primaryKey__} ?`;
 		return html;
 	}
