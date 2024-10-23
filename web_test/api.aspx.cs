@@ -17,6 +17,8 @@ namespace web
         private lib_sensor.Sensor sensor;
         private lib_sv.SV sv;
 
+        private lib_SVTT.SVTT sVTT;
+
         class PhanHoi
         {
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -109,6 +111,18 @@ namespace web
                 case "sv_delete":
                     sv.Run(action);
                     break;
+
+
+                case "SVTT_get_all":
+                case "SVTT_insert":
+                case "SVTT_update":
+                case "SVTT_delete":
+                    sVTT = new lib_SVTT.SVTT(this, user, cnstr);
+                    sVTT.add_log += (string key, string msg) => { log.add_log(key, msg); };
+                    sVTT.Run(action);
+                    break;
+
+
                 default:
                     user.bao_loi("Lỗi báo từ API: Hãy kiểm tra lại action="+action);
                     break;

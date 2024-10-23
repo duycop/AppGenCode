@@ -52,6 +52,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="asset\lib_SVTT.js" />
     <Content Include="icon\manifest.json" />
     <Content Include="icon\site.webmanifest" />
     <None Include="packages.config" />
@@ -145,6 +146,10 @@
     <ProjectReference Include="..\lib_setting\lib_setting.csproj">
       <Project>{1f5e90e0-deea-4ed5-b07d-5cd8f01db491}</Project>
       <Name>lib_setting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_SVTT\lib_SVTT.csproj">
+      <Project>{70e9b257-53c2-415c-b4fd-97e66d96f462}</Project>
+      <Name>lib_SVTT</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib_sv\lib_sv.csproj">
       <Project>{9d5ab4e6-e26d-4f7d-afba-1dea3a3331e8}</Project>

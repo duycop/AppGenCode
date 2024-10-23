@@ -82,6 +82,23 @@ export const setting = {
 				return false;
 			}
 		},
+
+		svtt: {
+			name: '<i class="fa-solid fa-graduation-cap"></i> Sinh viên TT',
+			title: 'Sinh Viên TT',
+			class: 'btn btn-info cmd-control-svtt',
+			action: function (dialog, item) {
+				//dialog.close();
+				if (lib.user.setting.user_info.role <= 1) {
+					lib.user.bao_loi("Bạn không có quyền");
+					return;
+				}
+				lib.load('SVTT', function () {
+					lib.SVTT.show_SVTT();
+				});
+				return false;
+			}
+		},
 	}
 };
 
