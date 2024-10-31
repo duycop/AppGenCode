@@ -52,6 +52,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="asset\lib_MonAn.js" />
     <Content Include="asset\lib_SVTT.js" />
     <Content Include="icon\manifest.json" />
     <Content Include="icon\site.webmanifest" />
@@ -138,6 +139,14 @@
     <ProjectReference Include="..\lib_log\lib_log.csproj">
       <Project>{3be94114-d96f-4a99-89b3-12872b39f3b4}</Project>
       <Name>lib_log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_MonAn\lib_MonAn.csproj">
+      <Project>{6f16f09e-dedf-4cbd-b159-ee29ee6c9a5e}</Project>
+      <Name>lib_MonAn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib_phong\lib_phong.csproj">
+      <Project>{97d545a2-f488-4ad9-8709-38696027262d}</Project>
+      <Name>lib_phong</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib_sensor\lib_sensor.csproj">
       <Project>{530bccd3-5768-4675-bd7f-79da7c081d7d}</Project>

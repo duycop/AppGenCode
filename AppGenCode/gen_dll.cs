@@ -18,6 +18,7 @@ namespace AppGenCode
             lib_csharp = lib_csharp.Replace("__TABLE_NAME_UP__", tableName.ToUpper());
             lib_csharp = lib_csharp.Replace("__TABLE_NAME_LF__", tableName.Substring(0, 1).ToLower() + tableName.Substring(1));
             lib_csharp = lib_csharp.Replace("__primaryKey__", primaryKey);
+            lib_csharp = lib_csharp.Replace("__primaryKeyType__", db.primaryKey.type);
 
             spBuilder.AppendLine(lib_csharp);
             return spBuilder.ToString();
@@ -53,6 +54,7 @@ namespace AppGenCode
             lib_csharp = lib_csharp.Replace("__TABLE_NAME__", tableName);
             lib_csharp = lib_csharp.Replace("__TABLE_NAME_UP__", tableName.ToUpper());
             lib_csharp = lib_csharp.Replace("__primaryKey__", primaryKey);
+            lib_csharp = lib_csharp.Replace("__primaryKeyType__", db.primaryKey.type);
             lib_csharp = lib_csharp.Replace("__LIST_SP_PARAM_POST__", __LIST_SP_PARAM_POST__(db));
             spBuilder.AppendLine(lib_csharp);
             return spBuilder.ToString();

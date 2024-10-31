@@ -99,6 +99,41 @@ export const setting = {
 				return false;
 			}
 		},
+
+
+		mon_an: {
+			name: '<i class="fa-solid fa-graduation-cap"></i> Món ăn',
+			title: 'Món ăn',
+			class: 'btn btn-info cmd-control-mon-am',
+			action: function (dialog, item) {
+				//dialog.close();
+				if (lib.user.setting.user_info.role <= 1) {
+					lib.user.bao_loi("Bạn không có quyền");
+					return;
+				}
+				lib.load('MonAn', function () {
+					lib.MonAn.show_MonAn();
+				});
+				return false;
+			}
+		},
+
+		Phong_KTX: {
+			name: '<i class="fa-solid fa-graduation-cap"></i> Phòng KTX',
+			title: 'Phòng KTX',
+			class: 'btn btn-info cmd-control-mon-am',
+			action: function (dialog, item) {
+				//dialog.close();
+				if (lib.user.setting.user_info.role <= 1) {
+					lib.user.bao_loi("Bạn không có quyền");
+					return;
+				}
+				lib.load('phong', function () {
+					lib.phong.show_Phong();
+				});
+				return false;
+			}
+		},
 	}
 };
 

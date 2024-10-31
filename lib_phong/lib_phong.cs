@@ -6,13 +6,13 @@ using System.Text;
 using System.Web;
 using System.Web.SessionState;
 
-/* file: cls___TABLE_NAME__.cs  nằm trong project DLL độc lập: lib___TABLE_NAME__ */
+/* file: cls_Phong.cs  nằm trong project DLL độc lập: lib_Phong */
 
-namespace lib___TABLE_NAME__
+namespace lib_Phong
 {
-    public class __TABLE_NAME__
+    public class Phong
     {
-        private const string SP = "SP___TABLE_NAME__";
+        private const string SP = "SP_Phong";
         public string cnstr;
 
         private HttpRequest Request;
@@ -41,7 +41,7 @@ namespace lib___TABLE_NAME__
             OnAddLog(key, message);
         }
 
-        public __TABLE_NAME__(System.Web.UI.Page papa, lib_user.User user, string cnstr)
+        public Phong(System.Web.UI.Page papa, lib_user.User user, string cnstr)
         {
             this.Request = papa.Request;
             this.Session = papa.Session;
@@ -73,7 +73,7 @@ namespace lib___TABLE_NAME__
             return JsonConvert.SerializeObject(p);
         }
 
-        void __TABLE_NAME___get_all()
+        void Phong_get_all()
         {
             string json = "";
             try
@@ -82,12 +82,12 @@ namespace lib___TABLE_NAME__
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        json = db.get_json("__TABLE_NAME___get_all", cmd);
+                        json = db.get_json("Phong_get_all", cmd);
                     }
                 }
                 else
                 {
-                    json = get_json_bao_loi($"Bạn không có quyền xem Danh sách __TABLE_NAME__");
+                    json = get_json_bao_loi($"Bạn không có quyền xem Danh sách Phong");
                 }
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace lib___TABLE_NAME__
             }
         }
 
-        void __TABLE_NAME___insert_update_delete(string action)
+        void Phong_insert_update_delete(string action)
         {
             string json = "";
             try
@@ -111,21 +111,25 @@ namespace lib___TABLE_NAME__
                     {
                         switch (action)
                         {
-                            case "__TABLE_NAME___insert":
-                            case "__TABLE_NAME___update":
-                            case "__TABLE_NAME___delete":
-                                cmd.Parameters.Add("__primaryKey__", System.Data.SqlDbType.__primaryKeyType__).Value = Request.Form["__primaryKey__"];
+                            case "Phong_insert":
+                            case "Phong_update":
+                            case "Phong_delete":
+                                cmd.Parameters.Add("maPhong", System.Data.SqlDbType.VarChar,10).Value = Request.Form["maPhong"];
                                 break;
                         }
 
                         switch (action)
                         {
-                            case "__TABLE_NAME___insert":
-                            case "__TABLE_NAME___update":
+                            case "Phong_insert":
+                            case "Phong_update":
                                 //cmd.Parameters.Add("hoten", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["hoten"];
                                 //cmd.Parameters.Add("qq", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["qq"];
                                 //cmd.Parameters.Add("tien", System.Data.SqlDbType.Float).Value = Request.Form["tien"];
-__LIST_SP_PARAM_POST__
+                                cmd.Parameters.Add("TenPhong", System.Data.SqlDbType.NVarChar, 50).Value = Request.Form["TenPhong"];
+                                cmd.Parameters.Add("SoGiuong", System.Data.SqlDbType.Int).Value = Request.Form["SoGiuong"];
+                                cmd.Parameters.Add("GiaTien", System.Data.SqlDbType.Float).Value = Request.Form["GiaTien"];
+                                cmd.Parameters.Add("DayNha", System.Data.SqlDbType.NVarChar, 10).Value = Request.Form["DayNha"];
+
                                 break;
                         }
                         json = db.get_json(action, cmd);
@@ -142,7 +146,7 @@ __LIST_SP_PARAM_POST__
             }
             finally
             {
-                Log(action,$"{user.uid}: {json}");
+                Log(action, $"{user.uid}: {json}");
                 this.Response.Write(json);
             }
         }
@@ -151,17 +155,17 @@ __LIST_SP_PARAM_POST__
         {
             switch (action)
             {
-                case "__TABLE_NAME___get_all":
-                    __TABLE_NAME___get_all();
+                case "Phong_get_all":
+                    Phong_get_all();
                     break;
-                case "__TABLE_NAME___insert":
-                case "__TABLE_NAME___update":
-                case "__TABLE_NAME___delete":
-                    __TABLE_NAME___insert_update_delete(action);
+                case "Phong_insert":
+                case "Phong_update":
+                case "Phong_delete":
+                    Phong_insert_update_delete(action);
                     break;
             }
         }
     }
 }
 
-/* kết thúc file: cls___TABLE_NAME__.cs  nằm trong project DLL độc lập: lib___TABLE_NAME__ */
+/* kết thúc file: cls_Phong.cs  nằm trong project DLL độc lập: lib_Phong */

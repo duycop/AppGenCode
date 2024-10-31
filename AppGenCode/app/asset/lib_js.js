@@ -77,11 +77,11 @@ export function get_content(callback = null, cache = 0) {
 		var html = '';
 		if (json.ok) {
 			html = '<div class="table-responsive" style="height-max:100px">' +
-				'<table class="table table-hover" id="table-view-log"><thead>' +
+				'<table class="table table-hover" id="table-view-__TABLE_NAME__"><thead>' +
 				'<tr class="table-info">' +
 				'<th class="text-center">STT</th>' +
-				__LIST_FIELDS_TH__
-			'<th class="text-center">Action</th>' +
+__LIST_FIELDS_TH__
+				'<th class="text-center">Action</th>' +
 				'</tr>' +
 				'</thead><tbody>';
 			//show html ra 1 dialog
@@ -102,8 +102,8 @@ export function get_content(callback = null, cache = 0) {
 						'</div>';
 					html += '<tr>' +
 						`<td class="text-center nowarp">${++stt}</td>` +
-						__LIST_FIELDS_TD__
-							`<td class="text-center nowarp">${action}</td>` +
+__LIST_FIELDS_TD__
+						`<td class="text-center nowarp">${action}</td>` +
 						'</tr>';
 				}
 			} else {
@@ -128,7 +128,8 @@ function get___TABLE_NAME___content(dialog, cache=0) {
 		if (json.ok) {
 			lib.toastr.tip('info', 'Thông báo', 'Tải dữ liệu __TABLE_TITLE__ thành công');
 			lib.table.sort_table('#table-view-__TABLE_NAME__', tieu_de, 10);
-			$('.cmd-action-__TABLE_NAME__').click(function () {
+
+			$('#table-view-__TABLE_NAME__ tbody').on('click', '.cmd-action-__TABLE_NAME__', function () {
 				var action = $(this).data('action');
 				var __primaryKey__ = $(this).data('__primaryKey__');
 				if (action == 'edit') action_edit___TABLE_NAME__(dialog, __primaryKey__);
@@ -195,7 +196,7 @@ __HTML_FORM_ADD__`;
 	function submit_add___TABLE_NAME__() {
 		var data = {
 			action: '__TABLE_NAME___insert',
-			__DATA_FORM_VAL__
+__DATA_FORM_VAL__
 		}
 		for (var item in data) {
 			if (data[item] == '') {

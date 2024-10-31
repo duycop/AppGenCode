@@ -19,6 +19,9 @@ namespace web
 
         private lib_SVTT.SVTT sVTT;
 
+        private lib_MonAn.MonAn monAn;
+
+        private lib_Phong.Phong phong;
         class PhanHoi
         {
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -122,6 +125,24 @@ namespace web
                     sVTT.Run(action);
                     break;
 
+
+                case "MonAn_get_all":
+                case "MonAn_insert":
+                case "MonAn_update":
+                case "MonAn_delete":
+                    monAn = new lib_MonAn.MonAn(this, user, cnstr);
+                    monAn.add_log += (string key, string msg) => { log.add_log(key, msg); };
+                    monAn.Run(action);
+                    break;
+
+                case "Phong_get_all":
+                case "Phong_insert":
+                case "Phong_update":
+                case "Phong_delete":
+                    phong = new lib_Phong.Phong(this, user, cnstr);
+                    phong.add_log += (string key, string msg) => { log.add_log(key, msg); };
+                    phong.Run(action);
+                    break;
 
                 default:
                     user.bao_loi("Lỗi báo từ API: Hãy kiểm tra lại action="+action);
